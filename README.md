@@ -42,7 +42,7 @@ Zéro téléchargement manuel. Zéro copier-coller de liens. Zéro oubli.
 
 ## Stack technique
 
-- C# / .NET 8
+- C# / .NET 10
 - WPF
 - MVVM (sans framework externe)
 
