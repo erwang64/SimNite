@@ -4,42 +4,54 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d">
-  <Grid Margin="16">
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="*" />
-    </Grid.RowDefinitions>
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="220" />
-      <ColumnDefinition Width="*" />
-    </Grid.ColumnDefinitions>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-    <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,14" FontSize="22" FontWeight="SemiBold" Text="Parametres" />
+        <TextBlock Margin="6,0,0,12" Style="{StaticResource TitleTextStyle}" Text="Parametres" />
 
-    <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,0,12,8" VerticalAlignment="Center" Text="Fichier settings" />
-    <TextBox Grid.Row="1" Grid.Column="1" Height="30" Margin="0,0,0,8" Text="{Binding SettingsPath, UpdateSourceTrigger=PropertyChanged}" />
+        <Border Grid.Row="1" Padding="16" Background="White">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="220" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-    <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,0,12,8" VerticalAlignment="Center" Text="Community Folder" />
-    <TextBox Grid.Row="2" Grid.Column="1" Height="30" Margin="0,0,0,8" Text="{Binding CommunityFolderPath, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,0,12,8" VerticalAlignment="Center" Foreground="{StaticResource SimNiteMutedBrush}" Text="Fichier settings" />
+                <TextBox Grid.Row="0" Grid.Column="1" Height="36" Margin="0,0,0,8" Text="{Binding SettingsPath, UpdateSourceTrigger=PropertyChanged}" />
 
-    <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,0,12,8" VerticalAlignment="Center" Text="Download temp path" />
-    <TextBox Grid.Row="3" Grid.Column="1" Height="30" Margin="0,0,0,8" Text="{Binding DownloadTempPath, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,0,12,8" VerticalAlignment="Center" Foreground="{StaticResource SimNiteMutedBrush}" Text="Community Folder" />
+                <TextBox Grid.Row="1" Grid.Column="1" Height="36" Margin="0,0,0,8" Text="{Binding CommunityFolderPath, UpdateSourceTrigger=PropertyChanged}" />
 
-    <TextBlock Grid.Row="4" Grid.Column="0" Margin="0,0,12,8" VerticalAlignment="Center" Text="Max downloads" />
-    <TextBox Grid.Row="4" Grid.Column="1" Height="30" Margin="0,0,0,8" Text="{Binding MaxConcurrentDownloads, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,0,12,8" VerticalAlignment="Center" Foreground="{StaticResource SimNiteMutedBrush}" Text="Download temp path" />
+                <TextBox Grid.Row="2" Grid.Column="1" Height="36" Margin="0,0,0,8" Text="{Binding DownloadTempPath, UpdateSourceTrigger=PropertyChanged}" />
 
-    <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Vertical">
-      <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-        <Button Margin="0,0,8,0" Padding="12,6" Command="{Binding LoadSettingsCommand}" Content="Charger" />
-        <Button Margin="0,0,8,0" Padding="12,6" Command="{Binding SaveSettingsCommand}" Content="Sauvegarder" />
-        <Button Padding="12,6" Command="{Binding DetectCommunityFolderCommand}" Content="Detecter Community" />
-      </StackPanel>
-      <TextBlock Foreground="#1E3A8A" FontWeight="SemiBold" Text="{Binding StatusMessage}" />
-    </StackPanel>
-  </Grid>
+                <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,0,12,8" VerticalAlignment="Center" Foreground="{StaticResource SimNiteMutedBrush}" Text="Max downloads" />
+                <TextBox Grid.Row="3" Grid.Column="1" Height="36" Margin="0,0,0,8" Text="{Binding MaxConcurrentDownloads, UpdateSourceTrigger=PropertyChanged}" />
+
+                <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="0,6,0,8">
+                    <Button Margin="0,0,8,0" Command="{Binding LoadSettingsCommand}" Content="Charger" />
+                    <Button Margin="0,0,8,0" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding SaveSettingsCommand}" Content="Sauvegarder" />
+                    <Button Command="{Binding DetectCommunityFolderCommand}" Content="Detecter Community" />
+                </StackPanel>
+
+                <TextBlock Grid.Row="5"
+                           Grid.ColumnSpan="2"
+                           Foreground="{StaticResource SimNiteSuccessBrush}"
+                           FontWeight="SemiBold"
+                           Text="{Binding StatusMessage}" />
+            </Grid>
+        </Border>
+    </Grid>
 </UserControl>
 

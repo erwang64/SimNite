@@ -4,32 +4,71 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d">
-    <Grid>
+    <Grid Background="{StaticResource SimNiteBackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Border Padding="12" Background="#1F2937">
-            <DockPanel LastChildFill="False">
-                <TextBlock DockPanel.Dock="Left"
-                           Margin="0,0,24,0"
-                           VerticalAlignment="Center"
-                           FontSize="20"
-                           FontWeight="SemiBold"
-                           Foreground="White"
-                           Text="SimNite" />
+        <Border Margin="16,16,16,10" Padding="20" Background="{StaticResource SimNitePanelBrush}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
-                <StackPanel Orientation="Horizontal">
-                    <Button Margin="0,0,8,0" Padding="12,6" Command="{Binding ShowModListCommand}" Content="Mods" />
-                    <Button Margin="0,0,8,0" Padding="12,6" Command="{Binding ShowInstallCommand}" Content="Installation" />
-                    <Button Margin="0,0,8,0" Padding="12,6" Command="{Binding ShowProfileCommand}" Content="Profils" />
-                    <Button Padding="12,6" Command="{Binding ShowSettingsCommand}" Content="Parametres" />
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Image Width="54"
+                               Height="54"
+                               Margin="0,0,14,0"
+                               Source="/Logo/SimNite_icon.png"
+                               Stretch="Uniform" />
+                        <Image Height="48"
+                               Source="/Logo/SimNite_text.png"
+                               Stretch="Uniform" />
+                    </StackPanel>
+
+                    <TextBlock Margin="0,8,0,10"
+                               FontSize="15"
+                               Foreground="{StaticResource SimNiteMutedBrush}"
+                               Text="Reinstalle tous tes mods MSFS en un seul clic." />
+
+                    <StackPanel Orientation="Horizontal">
+                        <Button Margin="0,0,8,0"
+                                Style="{StaticResource NavButtonStyle}"
+                                Command="{Binding ShowModListCommand}"
+                                Content="Catalogue" />
+                        <Button Margin="0,0,8,0"
+                                Style="{StaticResource NavButtonStyle}"
+                                Command="{Binding ShowInstallCommand}"
+                                Content="Installation" />
+                        <Button Margin="0,0,8,0"
+                                Style="{StaticResource NavButtonStyle}"
+                                Command="{Binding ShowProfileCommand}"
+                                Content="Profils" />
+                        <Button Style="{StaticResource NavButtonStyle}"
+                                Command="{Binding ShowSettingsCommand}"
+                                Content="Parametres" />
+                    </StackPanel>
                 </StackPanel>
-            </DockPanel>
+
+                <Image Grid.Column="1"
+                       Width="120"
+                       Height="120"
+                       Margin="24,0,0,0"
+                       VerticalAlignment="Center"
+                       Source="/Logo/SimNite_icon.png"
+                       Stretch="Uniform" />
+            </Grid>
         </Border>
 
-        <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}" />
+        <Border Grid.Row="1"
+                Margin="16,0,16,16"
+                Padding="14"
+                Background="{StaticResource SimNiteSurfaceBrush}">
+            <ContentControl Content="{Binding CurrentViewModel}" />
+        </Border>
     </Grid>
 </UserControl>
 

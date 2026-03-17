@@ -5,6 +5,142 @@
              xmlns:views="clr-namespace:SimNite.Views"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <SolidColorBrush x:Key="SimNiteBackgroundBrush" Color="#ECEAE4" />
+        <SolidColorBrush x:Key="SimNiteSurfaceBrush" Color="#F8F7F2" />
+        <SolidColorBrush x:Key="SimNitePanelBrush" Color="#FFFCF5" />
+        <SolidColorBrush x:Key="SimNiteBorderBrush" Color="#D8D4C8" />
+        <SolidColorBrush x:Key="SimNitePrimaryBrush" Color="#F7C614" />
+        <SolidColorBrush x:Key="SimNiteTextBrush" Color="#101010" />
+        <SolidColorBrush x:Key="SimNiteMutedBrush" Color="#625E54" />
+        <SolidColorBrush x:Key="SimNiteErrorBrush" Color="#B42318" />
+        <SolidColorBrush x:Key="SimNiteSuccessBrush" Color="#166534" />
+
+        <Style TargetType="Window">
+            <Setter Property="Background" Value="{StaticResource SimNiteBackgroundBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource SimNiteTextBrush}" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+        </Style>
+
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource SimNiteTextBrush}" />
+        </Style>
+
+        <Style x:Key="TitleTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="28" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="{StaticResource SimNiteTextBrush}" />
+        </Style>
+
+        <Style x:Key="SectionTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="{StaticResource SimNiteTextBrush}" />
+        </Style>
+
+        <Style TargetType="Border">
+            <Setter Property="CornerRadius" Value="14" />
+            <Setter Property="BorderBrush" Value="{StaticResource SimNiteBorderBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="Foreground" Value="{StaticResource SimNiteTextBrush}" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="BorderBrush" Value="{StaticResource SimNiteBorderBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="14,8" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="buttonBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="10"
+                                SnapsToDevicePixels="True">
+                            <ContentPresenter Margin="{TemplateBinding Padding}"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="buttonBorder" Property="Background" Value="#FFF2C857" />
+                                <Setter TargetName="buttonBorder" Property="BorderBrush" Value="{StaticResource SimNitePrimaryBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="buttonBorder" Property="Background" Value="#FFE7B500" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="buttonBorder" Property="Opacity" Value="0.55" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="PrimaryButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="{StaticResource SimNitePrimaryBrush}" />
+            <Setter Property="BorderBrush" Value="#D6AA10" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+
+        <Style x:Key="NavButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Padding" Value="16,8" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Background" Value="#FFFDF9E8" />
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="White" />
+            <Setter Property="BorderBrush" Value="{StaticResource SimNiteBorderBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="10,6" />
+            <Setter Property="Foreground" Value="{StaticResource SimNiteTextBrush}" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="Background" Value="White" />
+            <Setter Property="BorderBrush" Value="{StaticResource SimNiteBorderBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="6,4" />
+            <Setter Property="Foreground" Value="{StaticResource SimNiteTextBrush}" />
+        </Style>
+
+        <Style TargetType="ProgressBar">
+            <Setter Property="Foreground" Value="{StaticResource SimNitePrimaryBrush}" />
+            <Setter Property="Background" Value="#FFF3EFD8" />
+            <Setter Property="Height" Value="20" />
+        </Style>
+
+        <Style TargetType="DataGrid">
+            <Setter Property="Background" Value="White" />
+            <Setter Property="BorderBrush" Value="{StaticResource SimNiteBorderBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="GridLinesVisibility" Value="Horizontal" />
+            <Setter Property="HorizontalGridLinesBrush" Value="#EEE9DB" />
+            <Setter Property="VerticalGridLinesBrush" Value="#EEE9DB" />
+            <Setter Property="RowBackground" Value="White" />
+            <Setter Property="AlternatingRowBackground" Value="#FFFCF7EA" />
+            <Setter Property="HeadersVisibility" Value="Column" />
+        </Style>
+
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#FFF5F2E7" />
+            <Setter Property="Foreground" Value="{StaticResource SimNiteTextBrush}" />
+            <Setter Property="BorderBrush" Value="#E5DFC9" />
+            <Setter Property="BorderThickness" Value="0,0,0,1" />
+            <Setter Property="Padding" Value="10,8" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+
+        <Style TargetType="DataGridRow">
+            <Setter Property="Foreground" Value="{StaticResource SimNiteTextBrush}" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+
         <DataTemplate DataType="{x:Type viewModels:ModListViewModel}">
             <views:ModListView />
         </DataTemplate>
