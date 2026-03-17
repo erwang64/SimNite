@@ -1,0 +1,89 @@
+{
+  "mods": [
+    {
+      "id": "fbw-a32nx",
+      "name": "FlyByWire A32NX",
+      "version": "stable",
+      "downloadUrl": "https://example.com/msfs/fbw-a32nx.zip",
+      "category": "Aircraft",
+      "type": "CommunityZip",
+      "installMode": "Auto",
+      "sizeBytes": 987654321,
+      "isChecked": false,
+      "tags": ["airliner", "a320", "freeware"]
+    },
+    {
+      "id": "pmdg-737-800",
+      "name": "PMDG 737-800",
+      "version": "3.0.0",
+      "downloadUrl": "https://example.com/msfs/pmdg-737-800.exe",
+      "category": "Aircraft",
+      "type": "ExternalInstaller",
+      "installMode": "Assisted",
+      "sizeBytes": 2147483648,
+      "isChecked": false,
+      "tags": ["airliner", "boeing", "payware"]
+    },
+    {
+      "id": "gsx-pro",
+      "name": "GSX Pro",
+      "version": "2.9.4",
+      "downloadUrl": "https://example.com/msfs/gsx-pro.exe",
+      "category": "Utility",
+      "type": "ExternalInstaller",
+      "installMode": "Assisted",
+      "sizeBytes": 734003200,
+      "isChecked": false,
+      "tags": ["ground-services", "utility"]
+    },
+    {
+      "id": "rex-accuseason",
+      "name": "REX AccuSeason",
+      "version": "2026.1",
+      "downloadUrl": "https://example.com/msfs/rex-accuseason.zip",
+      "category": "Weather",
+      "type": "CommunityZip",
+      "installMode": "Auto",
+      "sizeBytes": 524288000,
+      "isChecked": false,
+      "tags": ["season", "weather", "textures"]
+    },
+    {
+      "id": "fsp-traffic",
+      "name": "FSLTL Traffic Base",
+      "version": "1.6.2",
+      "downloadUrl": "https://example.com/msfs/fsltl-traffic-base.zip",
+      "category": "Traffic",
+      "type": "CommunityZip",
+      "installMode": "Auto",
+      "sizeBytes": 3221225472,
+      "isChecked": false,
+      "tags": ["ai-traffic", "models"]
+    },
+    {
+      "id": "we-love-vfr-region-1",
+      "name": "We Love VFR Region 1",
+      "version": "1.2.0",
+      "downloadUrl": "https://example.com/msfs/we-love-vfr-region-1.zip",
+      "category": "Scenery",
+      "type": "CommunityZip",
+      "installMode": "Auto",
+      "sizeBytes": 1572864000,
+      "isChecked": false,
+      "tags": ["scenery", "landmarks", "vfr"]
+    },
+    {
+      "id": "aig-fallback",
+      "name": "AIG Model Matching Sound Pack",
+      "version": "1.0.3",
+      "downloadUrl": "https://example.com/msfs/aig-sound-pack.zip",
+      "category": "Sound",
+      "type": "CommunityZip",
+      "installMode": "Auto",
+      "sizeBytes": 268435456,
+      "isChecked": false,
+      "tags": ["sound", "immersion"]
+    }
+  ]
+}
+
