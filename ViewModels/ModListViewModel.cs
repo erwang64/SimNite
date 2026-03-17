@@ -1,6 +1,181 @@
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Windows.Input;
+using SimNite.Models;
+using SimNite.Services.Interfaces;
+
 namespace SimNite.ViewModels;
 
 public class ModListViewModel : BaseViewModel
 {
-}
+	private readonly IDatabaseService _databaseService;
+	private readonly string _localDatabasePath;
+	private readonly string? _remoteDatabaseUrl;
+	private readonly List<Mod> _allMods = new();
+	private CancellationTokenSource? _loadCancellationTokenSource;
+	private string _searchText = string.Empty;
+	private ModCategory? _selectedCategory;
+	private bool _isLoading;
+	private string? _errorMessage;
 
+	public ModListViewModel(IDatabaseService databaseService, string? localDatabasePath = null, string? remoteDatabaseUrl = null)
+	{
+		_databaseService = databaseService ?? throw new ArgumentNullException(nameof(databaseService));
+		_localDatabasePath = localDatabasePath ?? Path.Combine(AppContext.BaseDirectory, "Data", "mods.json");
+		_remoteDatabaseUrl = remoteDatabaseUrl;
+
+		FilteredMods = new ObservableCollection<Mod>();
+		Categories = Enum.GetValues<ModCategory>();
+
+		LoadModsCommand = new RelayCommand(_ => LoadModsAsync(), _ => !IsLoading);
+		RefreshModsCommand = new RelayCommand(_ => LoadModsAsync(forceRefresh: true), _ => !IsLoading);
+		ClearFiltersCommand = new RelayCommand(_ => ClearFilters(), _ => !IsLoading);
+		CancelLoadCommand = new RelayCommand(_ => CancelLoading(), _ => IsLoading);
+	}
+
+	public ObservableCollection<Mod> FilteredMods { get; }
+
+	public IReadOnlyList<ModCategory> Categories { get; }
+
+	public ICommand LoadModsCommand { get; }
+
+	public ICommand RefreshModsCommand { get; }
+
+	public ICommand ClearFiltersCommand { get; }
+
+	public ICommand CancelLoadCommand { get; }
+
+	public string SearchText
+	{
+		get => _searchText;
+		set
+		{
+			if (SetProperty(ref _searchText, value))
+			{
+				ApplyFilters();
+			}
+		}
+	}
+
+	public ModCategory? SelectedCategory
+	{
+		get => _selectedCategory;
+		set
+		{
+			if (SetProperty(ref _selectedCategory, value))
+			{
+				ApplyFilters();
+			}
+		}
+	}
+
+	public bool IsLoading
+	{
+		get => _isLoading;
+		private set
+		{
+			if (SetProperty(ref _isLoading, value))
+			{
+				RaiseCommandStates();
+			}
+		}
+	}
+
+	public string? ErrorMessage
+	{
+		get => _errorMessage;
+		private set => SetProperty(ref _errorMessage, value);
+	}
+
+	private async Task LoadModsAsync(bool forceRefresh = false)
+	{
+		if (IsLoading)
+		{
+			return;
+		}
+
+		_loadCancellationTokenSource?.Dispose();
+		_loadCancellationTokenSource = new CancellationTokenSource();
+
+		IsLoading = true;
+		ErrorMessage = null;
+
+		try
+		{
+			if (!forceRefresh && _allMods.Count > 0)
+			{
+				ApplyFilters();
+				return;
+			}
+
+			var mods = await _databaseService.GetModsAsync(
+				_localDatabasePath,
+				_remoteDatabaseUrl,
+				_loadCancellationTokenSource.Token);
+
+			_allMods.Clear();
+			_allMods.AddRange(mods);
+			ApplyFilters();
+		}
+		catch (OperationCanceledException)
+		{
+			ErrorMessage = "Loading was canceled.";
+		}
+		catch (Exception ex)
+		{
+			ErrorMessage = ex.Message;
+		}
+		finally
+		{
+			IsLoading = false;
+		}
+	}
+
+	private void ClearFilters()
+	{
+		SearchText = string.Empty;
+		SelectedCategory = null;
+	}
+
+	private void CancelLoading()
+	{
+		_loadCancellationTokenSource?.Cancel();
+	}
+
+	private void ApplyFilters()
+	{
+		var filtered = _allMods.Where(MatchesFilters);
+
+		FilteredMods.Clear();
+		foreach (var mod in filtered)
+		{
+			FilteredMods.Add(mod);
+		}
+	}
+
+	private bool MatchesFilters(Mod mod)
+	{
+		if (SelectedCategory.HasValue && mod.Category != SelectedCategory.Value)
+		{
+			return false;
+		}
+
+		if (string.IsNullOrWhiteSpace(SearchText))
+		{
+			return true;
+		}
+
+		var query = SearchText.Trim();
+		return mod.Name.Contains(query, StringComparison.OrdinalIgnoreCase)
+			   || mod.Id.Contains(query, StringComparison.OrdinalIgnoreCase)
+			   || mod.Tags.Any(tag => tag.Contains(query, StringComparison.OrdinalIgnoreCase));
+	}
+
+	private void RaiseCommandStates()
+	{
+		(LoadModsCommand as RelayCommand)?.RaiseCanExecuteChanged();
+		(RefreshModsCommand as RelayCommand)?.RaiseCanExecuteChanged();
+		(ClearFiltersCommand as RelayCommand)?.RaiseCanExecuteChanged();
+		(CancelLoadCommand as RelayCommand)?.RaiseCanExecuteChanged();
+	}
+}
