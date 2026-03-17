@@ -87,6 +87,23 @@ public class ModListViewModel : BaseViewModel
 		private set => SetProperty(ref _errorMessage, value);
 	}
 
+	public IReadOnlyList<Mod> GetSelectedMods()
+	{
+		return _allMods.Where(mod => mod.IsChecked).ToList();
+	}
+
+	public void ApplySelectedModIds(IEnumerable<string> selectedIds)
+	{
+		var selectedSet = new HashSet<string>(selectedIds, StringComparer.OrdinalIgnoreCase);
+
+		foreach (var mod in _allMods)
+		{
+			mod.IsChecked = selectedSet.Contains(mod.Id);
+		}
+
+		ApplyFilters();
+	}
+
 	private async Task LoadModsAsync(bool forceRefresh = false)
 	{
 		if (IsLoading)

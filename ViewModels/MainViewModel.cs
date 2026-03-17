@@ -7,12 +7,12 @@ public class MainViewModel : BaseViewModel
 {
 	private BaseViewModel _currentViewModel;
 
-	public MainViewModel(IDatabaseService databaseService)
+	public MainViewModel(IDatabaseService databaseService, IProfileService profileService)
 	{
 		ModListViewModel = new ModListViewModel(databaseService);
 		InstallViewModel = new InstallViewModel();
-		ProfileViewModel = new ProfileViewModel();
-		SettingsViewModel = new SettingsViewModel();
+		ProfileViewModel = new ProfileViewModel(profileService, ModListViewModel);
+		SettingsViewModel = new SettingsViewModel(profileService);
 
 		_currentViewModel = ModListViewModel;
 

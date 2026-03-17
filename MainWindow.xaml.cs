@@ -12,6 +12,6 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        DataContext = new MainViewModel(new DatabaseService());
+        DataContext = new MainViewModel(new DatabaseService(), new ProfileService());
     }
 }
