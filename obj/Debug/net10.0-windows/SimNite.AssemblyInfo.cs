@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SimNite")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2ef9bfa954bb1fe6a1bc46d7f4196a64c8c1ff46")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f49c07dd92fce61e59ac2b5cb55e5961a6e201fd")]
 [assembly: System.Reflection.AssemblyProductAttribute("SimNite")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SimNite")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

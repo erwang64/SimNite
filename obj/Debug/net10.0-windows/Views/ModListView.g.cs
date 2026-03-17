@@ -51,7 +51,7 @@ namespace SimNite.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/SimNite;component/views/modlistview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/SimNite;V1.0.0.0;component/views/modlistview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Views\ModListView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
