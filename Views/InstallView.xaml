@@ -4,6 +4,42 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d">
-    <Grid />
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock FontSize="22" FontWeight="SemiBold" Text="Progression d'installation" />
+
+        <TextBlock Grid.Row="1" Margin="0,12,0,8" FontSize="14" Text="{Binding CurrentStep}" />
+
+        <ProgressBar Grid.Row="2"
+                     Height="24"
+                     Maximum="100"
+                     Minimum="0"
+                     Value="{Binding OverallProgress}" />
+
+        <StackPanel Grid.Row="3" Margin="0,12,0,0">
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <Button Margin="0,0,8,0" Padding="10,6" Command="{Binding StartSimulationCommand}" Content="Demarrer simulation" />
+                <Button Padding="10,6" Command="{Binding ResetCommand}" Content="Reset" />
+            </StackPanel>
+
+            <DataGrid AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
+                      HeadersVisibility="Column"
+                      ItemsSource="{Binding Tasks}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="2*" Header="Mod" Binding="{Binding Mod.Name}" />
+                    <DataGridTextColumn Width="*" Header="Status" Binding="{Binding Status}" />
+                    <DataGridTextColumn Width="*" Header="Progress" Binding="{Binding Progress}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
 </UserControl>
 

@@ -4,6 +4,32 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d">
-    <Grid />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Border Padding="12" Background="#1F2937">
+            <DockPanel LastChildFill="False">
+                <TextBlock DockPanel.Dock="Left"
+                           Margin="0,0,24,0"
+                           VerticalAlignment="Center"
+                           FontSize="20"
+                           FontWeight="SemiBold"
+                           Foreground="White"
+                           Text="SimNite" />
+
+                <StackPanel Orientation="Horizontal">
+                    <Button Margin="0,0,8,0" Padding="12,6" Command="{Binding ShowModListCommand}" Content="Mods" />
+                    <Button Margin="0,0,8,0" Padding="12,6" Command="{Binding ShowInstallCommand}" Content="Installation" />
+                    <Button Margin="0,0,8,0" Padding="12,6" Command="{Binding ShowProfileCommand}" Content="Profils" />
+                    <Button Padding="12,6" Command="{Binding ShowSettingsCommand}" Content="Parametres" />
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}" />
+    </Grid>
 </UserControl>
 

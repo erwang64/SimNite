@@ -30,3 +30,5 @@ C:\wamp64\www\SimNite\obj\Debug\net10.0-windows\Views\ModListView.g.cs
 C:\wamp64\www\SimNite\obj\Debug\net10.0-windows\Views\ProfileView.g.cs
 C:\wamp64\www\SimNite\obj\Debug\net10.0-windows\Views\SettingsView.g.cs
 C:\wamp64\www\SimNite\bin\Debug\net10.0-windows\Data\mods.json
+C:\wamp64\www\SimNite\obj\Debug\net10.0-windows\GeneratedInternalTypeHelper.g.cs
+C:\wamp64\www\SimNite\obj\Debug\net10.0-windows\App.baml

@@ -4,6 +4,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d">
-    <Grid />
+    <Grid Margin="16">
+        <TextBlock FontSize="22" FontWeight="SemiBold" Text="Parametres (etape 7)" />
+    </Grid>
 </UserControl>
 
