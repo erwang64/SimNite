@@ -1,5 +1,6 @@
 using System.IO;
 using System.Net.Http;
+using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using SimNite.Models;
@@ -26,19 +27,27 @@ public class DatabaseService : IDatabaseService
 			throw new ArgumentException("Database file path cannot be empty.", nameof(filePath));
 		}
 
-		if (!File.Exists(filePath))
-		{
-			throw new FileNotFoundException("Local database file was not found.", filePath);
-		}
-
 		try
 		{
-			await using var stream = File.OpenRead(filePath);
-			var database = await JsonSerializer.DeserializeAsync<ModDatabase>(stream, SerializerOptions, cancellationToken)
-				?? new ModDatabase();
+			Stream stream;
+			if (File.Exists(filePath))
+			{
+				stream = File.OpenRead(filePath);
+			}
+			else
+			{
+				stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SimNite.Data.mods.json")
+					?? throw new FileNotFoundException("Local database file and embedded resource were not found.", filePath);
+			}
 
-			ValidateDatabase(database);
-			return database;
+			await using (stream)
+			{
+				var database = await JsonSerializer.DeserializeAsync<ModDatabase>(stream, SerializerOptions, cancellationToken)
+					?? new ModDatabase();
+
+				ValidateDatabase(database);
+				return database;
+			}
 		}
 		catch (OperationCanceledException)
 		{

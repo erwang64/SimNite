@@ -7,6 +7,7 @@ namespace SimNite.ViewModels;
 
 public class SettingsViewModel : BaseViewModel
 {
+	private const string CommunityFolderPlaceholder = "Not detected - Please set...";
 	private readonly IProfileService _profileService;
 	private string _settingsPath;
 	private string _communityFolderPath = string.Empty;
@@ -23,8 +24,8 @@ public class SettingsViewModel : BaseViewModel
 
 		LoadSettingsCommand = new RelayCommand(_ => LoadSettingsAsync(), _ => !IsBusy);
 		SaveSettingsCommand = new RelayCommand(_ => SaveSettingsAsync(), _ => !IsBusy);
-		DetectCommunityFolderCommand = new RelayCommand(_ => DetectCommunityFolder(), _ => !IsBusy);
-		BrowseCommunityFolderCommand = new RelayCommand(_ => BrowseCommunityFolder(), _ => !IsBusy);
+		DetectCommunityFolderCommand = new RelayCommand(_ => DetectCommunityFolderAsync(), _ => !IsBusy);
+		BrowseCommunityFolderCommand = new RelayCommand(_ => BrowseCommunityFolderAsync(), _ => !IsBusy);
 		BrowseDownloadPathCommand = new RelayCommand(_ => BrowseDownloadPath(), _ => !IsBusy);
 
 		LoadSettingsCommand.Execute(null);
@@ -94,7 +95,7 @@ public class SettingsViewModel : BaseViewModel
 			IsBusy = true;
 			var settings = await _profileService.LoadSettingsAsync(SettingsPath, CancellationToken.None);
 
-			CommunityFolderPath = string.IsNullOrWhiteSpace(settings.CommunityFolderPath) ? "Not detected - Please set..." : settings.CommunityFolderPath;
+			CommunityFolderPath = string.IsNullOrWhiteSpace(settings.CommunityFolderPath) ? CommunityFolderPlaceholder : settings.CommunityFolderPath;
 			DownloadTempPath = string.IsNullOrWhiteSpace(settings.DownloadTempPath) ? Path.Combine(Path.GetTempPath(), "SimNite") : settings.DownloadTempPath;
 			MaxConcurrentDownloads = settings.MaxConcurrentDownloads <= 0 ? 3 : settings.MaxConcurrentDownloads;
 
@@ -123,7 +124,7 @@ public class SettingsViewModel : BaseViewModel
 
 			var settings = new SimSettings
 			{
-				CommunityFolderPath = CommunityFolderPath,
+				CommunityFolderPath = CommunityFolderPath == CommunityFolderPlaceholder ? string.Empty : CommunityFolderPath,
 				DownloadTempPath = DownloadTempPath,
 				MaxConcurrentDownloads = MaxConcurrentDownloads < 1 ? 1 : MaxConcurrentDownloads
 			};
@@ -141,7 +142,7 @@ public class SettingsViewModel : BaseViewModel
 		}
 	}
 
-	private void DetectCommunityFolder()
+	private async Task DetectCommunityFolderAsync()
 	{
 		var detected = _profileService.DetectCommunityFolderPath();
 		if (string.IsNullOrWhiteSpace(detected))
@@ -151,10 +152,14 @@ public class SettingsViewModel : BaseViewModel
 		}
 
 		CommunityFolderPath = detected;
-		StatusMessage = "Community folder detected.";
+		await SaveSettingsAsync();
+		if (!StatusMessage.StartsWith("Save failed:", StringComparison.Ordinal))
+		{
+			StatusMessage = "Community folder detected and saved.";
+		}
 	}
 
-	private void BrowseCommunityFolder()
+	private async Task BrowseCommunityFolderAsync()
 	{
 		var dialog = new Microsoft.Win32.OpenFolderDialog
 		{
@@ -163,6 +168,11 @@ public class SettingsViewModel : BaseViewModel
 		if (dialog.ShowDialog() == true)
 		{
 			CommunityFolderPath = dialog.FolderName;
+			await SaveSettingsAsync();
+			if (!StatusMessage.StartsWith("Save failed:", StringComparison.Ordinal))
+			{
+				StatusMessage = "Community folder saved.";
+			}
 		}
 	}
 
@@ -183,5 +193,7 @@ public class SettingsViewModel : BaseViewModel
 		(LoadSettingsCommand as RelayCommand)?.RaiseCanExecuteChanged();
 		(SaveSettingsCommand as RelayCommand)?.RaiseCanExecuteChanged();
 		(DetectCommunityFolderCommand as RelayCommand)?.RaiseCanExecuteChanged();
+		(BrowseCommunityFolderCommand as RelayCommand)?.RaiseCanExecuteChanged();
+		(BrowseDownloadPathCommand as RelayCommand)?.RaiseCanExecuteChanged();
 	}
 }

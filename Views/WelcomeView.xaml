@@ -2,9 +2,18 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Grid Background="{StaticResource SimNiteBackgroundBrush}">
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Text="Welcome to SimNite Manager" FontSize="36" FontWeight="Bold" Foreground="{StaticResource SimNiteTextBrush}" HorizontalAlignment="Center" Margin="0,0,0,16"/>
-            <TextBlock Text="Select 'Mods' on the left menu to continue." FontSize="16" Foreground="{StaticResource SimNiteMutedBrush}" HorizontalAlignment="Center"/>
-        </StackPanel>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40">
+                
+                <TextBlock Text="Welcome to SimNite" FontSize="42" FontWeight="Bold" Foreground="{StaticResource SimNiteTextBrush}" HorizontalAlignment="Center" Margin="0,0,0,16"/>
+
+                <Border MaxWidth="900" Margin="0,0,0,48" Padding="28" Background="{StaticResource SimNiteSurfaceBrush}" BorderBrush="{StaticResource SimNiteBorderBrush}" BorderThickness="1" CornerRadius="12">
+                    <TextBlock TextWrapping="Wrap" TextAlignment="Center" Foreground="{StaticResource SimNiteMutedBrush}" FontSize="16" LineHeight="28"
+                               Text="SimNite helps you restore your setup fast: choose your mods in the library, save your selection as a profile, and load it anytime later. The app will then download and install everything automatically for you."/>
+                </Border>
+
+                <Button Style="{StaticResource PrimaryButtonStyle}" Command="{Binding StartJourneyCommand}" Content="Get Started" FontSize="18" Padding="32,16" HorizontalAlignment="Center"/>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </UserControl>

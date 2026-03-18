@@ -16,7 +16,7 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <Border Grid.Row="0" Background="White" Margin="0,0,0,32" Padding="0,40,0,30">
+                <Border Grid.Row="0" Background="White" Margin="0,0,0,32" Padding="0,40,0,30" CornerRadius="0">
                     <Button Command="{Binding ShowWelcomeCommand}" Background="Transparent" BorderThickness="0" Cursor="Hand" HorizontalAlignment="Stretch">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
@@ -117,16 +117,20 @@
                     </Button>
                 </StackPanel>
 
-                <!-- Footer Community Folder -->
-                <Border Grid.Row="2" Margin="20,0,20,32" Padding="16" Background="{StaticResource SimNitePanelBrush}" BorderThickness="1" BorderBrush="{StaticResource SimNiteBorderBrush}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="📁" Margin="0,0,16,0" VerticalAlignment="Center" FontSize="20"/>
-                        <StackPanel>
-                            <TextBlock Text="Community Folder" Foreground="{StaticResource SimNiteMutedBrush}" FontSize="14"/>
-                            <TextBlock Text="{Binding SettingsViewModel.CommunityFolderPath}" Foreground="{StaticResource SimNiteTextBrush}" FontSize="12" TextTrimming="CharacterEllipsis" MaxWidth="180"/>
+                <!-- Footer Community Folder & Version -->
+                <StackPanel Grid.Row="2" Margin="20,0,20,32">
+                    <Border Padding="16" Background="{StaticResource SimNitePanelBrush}" BorderThickness="1" BorderBrush="{StaticResource SimNiteBorderBrush}" Margin="0,0,0,12">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="📁" Margin="0,0,16,0" VerticalAlignment="Center" FontSize="20"/>
+                            <StackPanel>
+                                <TextBlock Text="Community Folder" Foreground="{StaticResource SimNiteMutedBrush}" FontSize="14"/>
+                                <TextBlock Text="{Binding SettingsViewModel.CommunityFolderPath}" Foreground="{StaticResource SimNiteTextBrush}" FontSize="12" TextTrimming="CharacterEllipsis" MaxWidth="180"/>
+                            </StackPanel>
                         </StackPanel>
-                    </StackPanel>
-                </Border>
+                    </Border>
+                    
+                    <TextBlock Text="SimNite v0.1" Foreground="{StaticResource SimNiteMutedBrush}" FontSize="12" HorizontalAlignment="Center" Opacity="0.5"/>
+                </StackPanel>
             </Grid>
         </Border>
 

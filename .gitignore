@@ -9,7 +9,7 @@ obj/
 *.userprefs
 .idea/
 .idea
-
+Installer/
 UML/
 
 # Local Data / Secrets
