@@ -133,14 +133,32 @@
                     <TextBlock Grid.Column="2" Text="None" Foreground="{StaticResource SimNiteMutedBrush}" FontSize="12" Cursor="Hand"/>
                 </Grid>
 
-                <!-- Selected List (Placeholder for now) -->
-                <TextBlock Grid.Row="1" Text="Check mods in the list to add them to your selection" Foreground="{StaticResource SimNiteMutedBrush}" FontSize="13" TextWrapping="Wrap" TextAlignment="Center" Margin="0,40,0,0"/>
+                <!-- Selected List -->
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,20,0,20">
+                    <ItemsControl ItemsSource="{Binding SelectedMods}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,0,0,12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="{Binding Name}" Foreground="{StaticResource SimNiteTextBrush}" FontSize="13" TextTrimming="CharacterEllipsis"/>
+                                    <!-- Simple indicator, no remove command for now as toggling via main list suffices -->
+                                    <TextBlock Grid.Column="1" Text="✓" Foreground="{StaticResource SimNiteSuccessBrush}" FontSize="14" Margin="8,0,0,0"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        
+                        <!-- Empty Template fallback could be added via triggers, but keep simple -->
+                    </ItemsControl>
+                </ScrollViewer>
 
                 <!-- Bottom Actions -->
                 <StackPanel Grid.Row="2">
-                    <TextBlock Text="0 mods selected" Foreground="{StaticResource SimNiteMutedBrush}" FontSize="12" Margin="0,0,0,12"/>
+                    <TextBlock Text="{Binding SelectedMods.Count, StringFormat='{}{0} mods selected'}" Foreground="{StaticResource SimNiteMutedBrush}" FontSize="12" Margin="0,0,0,12"/>
                     <Button Content="Export to profile" Background="{StaticResource SimNiteInputBrush}" Foreground="{StaticResource SimNiteTextBrush}" BorderBrush="{StaticResource SimNiteBorderBrush}" BorderThickness="1" Padding="0,12" FontSize="14" Margin="0,0,0,12"/>
-                    <Button Content="Install selection" Background="{StaticResource SimNiteInputBrush}" Foreground="{StaticResource SimNiteTextBrush}" BorderBrush="{StaticResource SimNiteBorderBrush}" BorderThickness="1" Padding="0,12" FontSize="14"/>
+                    <Button Content="Install selection" Command="{Binding InstallSelectionCommand}" Background="{StaticResource SimNiteInputBrush}" Foreground="{StaticResource SimNiteTextBrush}" BorderBrush="{StaticResource SimNiteBorderBrush}" BorderThickness="1" Padding="0,12" FontSize="14"/>
                 </StackPanel>
             </Grid>
         </Border>

@@ -1,4 +1,4 @@
-﻿using System.Windows;
+using System.Windows;
 using SimNite.Services;
 using SimNite.ViewModels;
 
@@ -12,6 +12,10 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        DataContext = new MainViewModel(new DatabaseService(), new ProfileService());
+        DataContext = new MainViewModel(
+            new DatabaseService(), 
+            new ProfileService(),
+            new DownloadService(),
+            new InstallService());
     }
 }

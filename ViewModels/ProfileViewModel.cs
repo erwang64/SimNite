@@ -26,6 +26,8 @@ public class ProfileViewModel : BaseViewModel
 		SaveProfileCommand = new RelayCommand(_ => SaveProfileAsync(), _ => !IsBusy);
 		LoadProfileCommand = new RelayCommand(_ => LoadProfileAsync(), _ => !IsBusy);
 		ScanCommunityCommand = new RelayCommand(_ => ScanCommunityAsync(), _ => !IsBusy);
+		BrowseProfilePathCommand = new RelayCommand(_ => BrowseProfilePath(), _ => !IsBusy);
+		BrowseSaveProfilePathCommand = new RelayCommand(_ => BrowseSaveProfilePath(), _ => !IsBusy);
 	}
 
 	public ICommand SaveProfileCommand { get; }
@@ -33,6 +35,10 @@ public class ProfileViewModel : BaseViewModel
 	public ICommand LoadProfileCommand { get; }
 
 	public ICommand ScanCommunityCommand { get; }
+
+	public ICommand BrowseProfilePathCommand { get; }
+
+	public ICommand BrowseSaveProfilePathCommand { get; }
 
 	public string ProfileName
 	{
@@ -150,6 +156,32 @@ public class ProfileViewModel : BaseViewModel
 		finally
 		{
 			IsBusy = false;
+		}
+	}
+
+	private void BrowseProfilePath()
+	{
+		var dialog = new Microsoft.Win32.OpenFileDialog
+		{
+			Filter = "JSON Files (*.json)|*.json|All Files (*.*)|*.*",
+			DefaultExt = "json"
+		};
+		if (dialog.ShowDialog() == true)
+		{
+			ProfilePath = dialog.FileName;
+		}
+	}
+
+	private void BrowseSaveProfilePath()
+	{
+		var dialog = new Microsoft.Win32.SaveFileDialog
+		{
+			Filter = "JSON Files (*.json)|*.json|All Files (*.*)|*.*",
+			DefaultExt = "json"
+		};
+		if (dialog.ShowDialog() == true)
+		{
+			ProfilePath = dialog.FileName;
 		}
 	}
 

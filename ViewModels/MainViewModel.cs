@@ -11,11 +11,15 @@ public class MainViewModel : BaseViewModel
 	private BaseViewModel _currentViewModel;
 	private readonly ObservableCollection<NavigationStep> _steps;
 
-	public MainViewModel(IDatabaseService databaseService, IProfileService profileService)
+	public MainViewModel(
+		IDatabaseService databaseService, 
+		IProfileService profileService,
+		IDownloadService downloadService,
+		IInstallService installService)
 	{
 		WelcomeViewModel = new WelcomeViewModel(this);
 		ModListViewModel = new ModListViewModel(databaseService);
-		InstallViewModel = new InstallViewModel();
+		InstallViewModel = new InstallViewModel(downloadService, installService);
 		ProfileViewModel = new ProfileViewModel(profileService, ModListViewModel);
 		SettingsViewModel = new SettingsViewModel(profileService);
 
@@ -37,6 +41,14 @@ public class MainViewModel : BaseViewModel
 		ShowInstallCommand = new RelayCommand(_ => NavigateToInstall());
 		ShowProfileCommand = new RelayCommand(_ => NavigateToProfile());
 		ShowSettingsCommand = new RelayCommand(_ => NavigateToSettings());
+
+		ModListViewModel.InstallRequested += OnInstallRequested;
+	}
+
+	private void OnInstallRequested(System.Collections.Generic.IEnumerable<Mod> mods)
+	{
+		InstallViewModel.InitializeTasks(mods);
+		NavigateToInstall();
 	}
 
 	public BaseViewModel CurrentViewModel

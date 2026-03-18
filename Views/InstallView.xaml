@@ -37,11 +37,12 @@
                 <DataGrid AutoGenerateColumns="False"
                           CanUserAddRows="False"
                           CanUserDeleteRows="False"
+                          IsReadOnly="True"
                           ItemsSource="{Binding Tasks}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="2*" Header="Mod" Binding="{Binding Mod.Name}" />
-                        <DataGridTextColumn Width="*" Header="Status" Binding="{Binding Status}" />
-                        <DataGridTextColumn Width="*" Header="Progress" Binding="{Binding Progress}" />
+                        <DataGridTextColumn Width="2*" Header="Mod" Binding="{Binding Mod.Name, Mode=OneWay}" />
+                        <DataGridTextColumn Width="*" Header="Status" Binding="{Binding Status, Mode=OneWay}" />
+                        <DataGridTextColumn Width="*" Header="Progress" Binding="{Binding Progress, Mode=OneWay}" />
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>

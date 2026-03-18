@@ -24,6 +24,8 @@ public class SettingsViewModel : BaseViewModel
 		LoadSettingsCommand = new RelayCommand(_ => LoadSettingsAsync(), _ => !IsBusy);
 		SaveSettingsCommand = new RelayCommand(_ => SaveSettingsAsync(), _ => !IsBusy);
 		DetectCommunityFolderCommand = new RelayCommand(_ => DetectCommunityFolder(), _ => !IsBusy);
+		BrowseCommunityFolderCommand = new RelayCommand(_ => BrowseCommunityFolder(), _ => !IsBusy);
+		BrowseDownloadPathCommand = new RelayCommand(_ => BrowseDownloadPath(), _ => !IsBusy);
 
 		LoadSettingsCommand.Execute(null);
 	}
@@ -33,6 +35,10 @@ public class SettingsViewModel : BaseViewModel
 	public ICommand SaveSettingsCommand { get; }
 
 	public ICommand DetectCommunityFolderCommand { get; }
+
+	public ICommand BrowseCommunityFolderCommand { get; }
+
+	public ICommand BrowseDownloadPathCommand { get; }
 
 	public string SettingsPath
 	{
@@ -88,8 +94,8 @@ public class SettingsViewModel : BaseViewModel
 			IsBusy = true;
 			var settings = await _profileService.LoadSettingsAsync(SettingsPath, CancellationToken.None);
 
-			CommunityFolderPath = settings.CommunityFolderPath;
-			DownloadTempPath = settings.DownloadTempPath;
+			CommunityFolderPath = string.IsNullOrWhiteSpace(settings.CommunityFolderPath) ? "Not detected - Please set..." : settings.CommunityFolderPath;
+			DownloadTempPath = string.IsNullOrWhiteSpace(settings.DownloadTempPath) ? Path.Combine(Path.GetTempPath(), "SimNite") : settings.DownloadTempPath;
 			MaxConcurrentDownloads = settings.MaxConcurrentDownloads <= 0 ? 3 : settings.MaxConcurrentDownloads;
 
 			StatusMessage = "Settings loaded.";
@@ -146,6 +152,30 @@ public class SettingsViewModel : BaseViewModel
 
 		CommunityFolderPath = detected;
 		StatusMessage = "Community folder detected.";
+	}
+
+	private void BrowseCommunityFolder()
+	{
+		var dialog = new Microsoft.Win32.OpenFolderDialog
+		{
+			Title = "Select Community Folder"
+		};
+		if (dialog.ShowDialog() == true)
+		{
+			CommunityFolderPath = dialog.FolderName;
+		}
+	}
+
+	private void BrowseDownloadPath()
+	{
+		var dialog = new Microsoft.Win32.OpenFolderDialog
+		{
+			Title = "Select Temporary Downloads Directory"
+		};
+		if (dialog.ShowDialog() == true)
+		{
+			DownloadTempPath = dialog.FolderName;
+		}
 	}
 
 	private void RaiseCommandStates()
