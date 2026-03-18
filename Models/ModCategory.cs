@@ -9,6 +9,7 @@ public enum ModCategory
     Weather,
     Traffic,
     Sound,
-    External
+    External,
+    Application
 }
 

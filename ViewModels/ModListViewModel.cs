@@ -29,23 +29,7 @@ public class ModListViewModel : BaseViewModel
 		SelectedMods = new ObservableCollection<Mod>();
 		Categories = Enum.GetValues<ModCategory>();
 
-                // Mock Mod for FBW Installer testing
-                var fbwMod = new Mod
-                {
-                        Id = "fbw-installer",
-                        Name = "FlyByWire Installer",
-                        Description = "Installeur officiel pour les avions FlyByWire Simulations (A32NX, A380X).",
-                        Author = "FlyByWire Simulations",
-                        Version = "v1.0",
-                        DownloadUrl = "https://flybywirecdn.com/installer/release/FlyByWire_Installer_Setup.exe",
-                        Category = ModCategory.Aircraft,
-                        Type = ModType.ExternalInstaller,
-                        InstallMode = InstallMode.Assisted,
-                        SizeBytes = 780000,
-                        IsChecked = false
-                };
-                _allMods.Add(fbwMod);
-                FilteredMods.Add(fbwMod);
+        // Removed hardcoded mock mod so that the database loads correctly
 
                 LoadModsCommand = new RelayCommand(_ => LoadModsAsync(), _ => !IsLoading);
                 RefreshModsCommand = new RelayCommand(_ => LoadModsAsync(forceRefresh: true), _ => !IsLoading);
@@ -59,13 +43,14 @@ public class ModListViewModel : BaseViewModel
                     }
                 }, _ => SelectedMods.Count > 0);
 
-                // Attach to mock
-                fbwMod.PropertyChanged += OnModPropertyChanged;
+                // Event subscriptions handled in LoadModsAsync
         }
 
         public event Action<IEnumerable<Mod>>? InstallRequested;
 
         public ObservableCollection<Mod> FilteredMods { get; }
+        
+        public IEnumerable<IGrouping<ModCategory, Mod>> GroupedMods => FilteredMods.GroupBy(m => m.Category);
         
         public ObservableCollection<Mod> SelectedMods { get; }
 
@@ -245,6 +230,7 @@ public class ModListViewModel : BaseViewModel
 		{
 			FilteredMods.Add(mod);
 		}
+		OnPropertyChanged(nameof(GroupedMods));
 	}
 
 	private bool MatchesFilters(Mod mod)

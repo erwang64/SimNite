@@ -11,6 +11,7 @@ public class Mod : INotifyPropertyChanged
     public string Author { get; set; } = string.Empty;
     public string Version { get; set; } = string.Empty;
     public string DownloadUrl { get; set; } = string.Empty;
+    public string? ImageUrl { get; set; }
     public ModCategory Category { get; set; }
     public ModType Type { get; set; }
     public InstallMode InstallMode { get; set; }

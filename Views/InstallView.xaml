@@ -3,50 +3,107 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d">
-    <Grid Margin="10">
+             mc:Ignorable="d" Background="{StaticResource SimNiteBackgroundBrush}">
+    <Grid Margin="32">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TextBlock Style="{StaticResource TitleTextStyle}" Text="Installation Progress" />
-
-        <Border Grid.Row="1" Margin="0,12,0,10" Padding="14" Background="{StaticResource SimNitePanelBrush}">
+        <!-- Header -->
+        <Border Grid.Row="0" Margin="0,0,0,24">
             <StackPanel>
-                <TextBlock FontWeight="SemiBold" Text="Current Step" />
-                <TextBlock Margin="0,4,0,0" FontSize="14" Foreground="{StaticResource SimNiteMutedBrush}" Text="{Binding CurrentStep, Mode=OneWay}" />
+                <TextBlock Text="Downloads &amp; Installation" FontSize="28" FontWeight="Bold" Foreground="{StaticResource SimNiteTextBrush}" Margin="0,0,0,8"/>
+                <TextBlock Text="Tracking your progress in real-time." FontSize="14" Foreground="{StaticResource SimNiteMutedBrush}"/>
             </StackPanel>
         </Border>
 
-        <ProgressBar Grid.Row="2"
-                     Height="26"
-                     Maximum="100"
-                     Minimum="0"
-                     Value="{Binding OverallProgress, Mode=OneWay}" />
+        <!-- Overall Progress Hero Card -->
+        <Border Grid.Row="1" Background="{StaticResource SimNiteSurfaceBrush}" BorderBrush="{StaticResource SimNiteBorderBrush}" BorderThickness="1" CornerRadius="12" Padding="24" Margin="0,0,0,32">
+            <StackPanel>
+                <Grid Margin="0,0,0,16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Overall Progress" Foreground="{StaticResource SimNiteMutedBrush}" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,4" />
+                        <TextBlock Text="{Binding CurrentStep, Mode=OneWay}" Foreground="{StaticResource SimNiteTextBrush}" FontSize="18" FontWeight="Bold" TextTrimming="CharacterEllipsis" />
+                    </StackPanel>
+                    <TextBlock Grid.Column="1" Text="{Binding OverallProgress, Mode=OneWay, StringFormat='{}{0:F0}%'}" Foreground="{StaticResource SimNitePrimaryBrush}" FontSize="24" FontWeight="Bold" VerticalAlignment="Bottom"/>
+                </Grid>
 
-        <StackPanel Grid.Row="3" Margin="0,12,0,0">
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <Button Margin="0,0,8,0" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding StartSimulationCommand}" Content="Start installation" />
-                <Button Command="{Binding ResetCommand}" Content="Reset" />
+                <ProgressBar Height="12" Minimum="0" Maximum="100" Value="{Binding OverallProgress, Mode=OneWay}" BorderThickness="0" Background="{StaticResource SimNiteInputBrush}" Foreground="{StaticResource SimNitePrimaryBrush}">
+                    <ProgressBar.Template>
+                        <ControlTemplate TargetType="ProgressBar">
+                            <Grid>
+                                <Border Background="{TemplateBinding Background}" CornerRadius="6" />
+                                <Border x:Name="PART_Indicator" Background="{TemplateBinding Foreground}" CornerRadius="6" HorizontalAlignment="Left" />
+                            </Grid>
+                        </ControlTemplate>
+                    </ProgressBar.Template>
+                </ProgressBar>
             </StackPanel>
+        </Border>
 
-            <Border Background="{StaticResource SimNiteSurfaceBrush}" Padding="0">
-                <DataGrid AutoGenerateColumns="False"
-                          CanUserAddRows="False"
-                          CanUserDeleteRows="False"
-                          IsReadOnly="True"
-                          ItemsSource="{Binding Tasks}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Width="2*" Header="Mod" Binding="{Binding Mod.Name, Mode=OneWay}" />
-                        <DataGridTextColumn Width="*" Header="Status" Binding="{Binding Status, Mode=OneWay}" />
-                        <DataGridTextColumn Width="*" Header="Progress" Binding="{Binding Progress, Mode=OneWay}" />
-                    </DataGrid.Columns>
-                </DataGrid>
-            </Border>
-        </StackPanel>
+        <!-- Tasks List -->
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <ItemsControl ItemsSource="{Binding Tasks}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="{StaticResource SimNitePanelBrush}" BorderBrush="{StaticResource SimNiteBorderBrush}" BorderThickness="1" CornerRadius="8" Padding="16" Margin="0,0,0,12">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="200" />
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Mod Image -->
+                                <Border Grid.Column="0" Width="64" Height="48" CornerRadius="6" Background="{StaticResource SimNiteInputBrush}" Margin="0,0,16,0" ClipToBounds="True">
+                                    <Border.Clip>
+                                        <RectangleGeometry RadiusX="6" RadiusY="6" Rect="0,0,64,48" />
+                                    </Border.Clip>
+                                    <Image Source="{Binding Mod.ImageUrl}" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                </Border>
+
+                                <!-- Mod Details -->
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="0,0,24,0">
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                                        <TextBlock Text="{Binding Mod.Name}" Foreground="{StaticResource SimNiteTextBrush}" FontSize="16" FontWeight="SemiBold" Margin="0,0,8,0" />
+                                        <Border Background="{StaticResource SimNiteSurfaceBrush}" CornerRadius="4" Padding="6,2">
+                                            <TextBlock Text="{Binding Mod.Category}" Foreground="{StaticResource SimNiteTextBrush}" FontSize="10" FontWeight="SemiBold"/>
+                                        </Border>
+                                    </StackPanel>
+                                    <TextBlock Text="{Binding Status, Mode=OneWay}" Foreground="{StaticResource SimNiteMutedBrush}" FontSize="13" />
+                                </StackPanel>
+
+                                <!-- Individual Task Progress -->
+                                <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                                    <Grid Margin="0,0,0,8">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="1" Text="{Binding Progress, Mode=OneWay, StringFormat='{}{0:F0}%'}" Foreground="{StaticResource SimNiteTextBrush}" FontSize="12" FontWeight="Bold" />
+                                    </Grid>
+                                    <ProgressBar Height="6" Minimum="0" Maximum="100" Value="{Binding Progress, Mode=OneWay}" BorderThickness="0" Background="{StaticResource SimNiteInputBrush}" Foreground="{StaticResource SimNiteSuccessBrush}">
+                                        <ProgressBar.Template>
+                                            <ControlTemplate TargetType="ProgressBar">
+                                                <Grid>
+                                                    <Border Background="{TemplateBinding Background}" CornerRadius="3" />
+                                                    <Border x:Name="PART_Indicator" Background="{TemplateBinding Foreground}" CornerRadius="3" HorizontalAlignment="Left" />
+                                                </Grid>
+                                            </ControlTemplate>
+                                        </ProgressBar.Template>
+                                    </ProgressBar>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 </UserControl>
-
