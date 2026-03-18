@@ -1,6 +1,8 @@
 System.InvalidOperationException: Une liaison TwoWay ou OneWayToSource ne peut pas fonctionner sur la propriété en lecture seule 'OverallProgress' de type 'SimNite.ViewModels.InstallViewModel'.
    at MS.Internal.Data.PropertyPathWorker.CheckReadOnly(Object item, Object info)
    at MS.Internal.Data.PropertyPathWorker.ReplaceItem(Int32 k, Object newO, Object parent)
+   at MS.Internal.Data.PropertyPathWorker.UpdateSourceValueState(Int32 k, ICollectionView collectionView, Object newValue, Boolean isASubPropertyChange)
+   at MS.Internal.Data.ClrBindingWorker.AttachDataItem()
    at System.Windows.Data.BindingExpression.Activate(Object item)
    at System.Windows.Data.BindingExpression.AttachToContext(AttachAttempt attempt)
    at System.Windows.Data.BindingExpression.MS.Internal.Data.IDataBindEngineClient.AttachToContext(Boolean lastChance)

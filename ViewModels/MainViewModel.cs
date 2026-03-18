@@ -49,6 +49,11 @@ public class MainViewModel : BaseViewModel
 	{
 		InstallViewModel.InitializeTasks(mods);
 		NavigateToInstall();
+		
+		if (InstallViewModel.StartSimulationCommand.CanExecute(null))
+		{
+			InstallViewModel.StartSimulationCommand.Execute(null);
+		}
 	}
 
 	public BaseViewModel CurrentViewModel
@@ -59,6 +64,10 @@ public class MainViewModel : BaseViewModel
 			if (SetProperty(ref _currentViewModel, value))
 			{
 				UpdateStepStatus();
+				OnPropertyChanged(nameof(IsModListActive));
+				OnPropertyChanged(nameof(IsInstallActive));
+				OnPropertyChanged(nameof(IsProfileActive));
+				OnPropertyChanged(nameof(IsSettingsActive));
 			}
 		}
 	}
@@ -90,6 +99,11 @@ public class MainViewModel : BaseViewModel
 	public ICommand ShowProfileCommand { get; }
 
 	public ICommand ShowSettingsCommand { get; }
+
+	public bool IsModListActive => CurrentViewModel == ModListViewModel;
+	public bool IsInstallActive => CurrentViewModel == InstallViewModel;
+	public bool IsProfileActive => CurrentViewModel == ProfileViewModel;
+	public bool IsSettingsActive => CurrentViewModel == SettingsViewModel;
 
 	private void UpdateStepStatus()
 	{

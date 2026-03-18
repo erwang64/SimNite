@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Grid Background="{StaticResource SimNiteBackgroundBrush}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="240" />
+            <ColumnDefinition Width="320" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
@@ -17,68 +17,133 @@
                 </Grid.RowDefinitions>
 
                 <!-- Header / Logo -->
-                <Button Grid.Row="0" Command="{Binding ShowWelcomeCommand}" Background="Transparent" BorderThickness="0" Margin="0,20,0,20" Cursor="Hand">
+                <Button Grid.Row="0" Command="{Binding ShowWelcomeCommand}" Background="Transparent" BorderThickness="0" Margin="0,32,0,32" Cursor="Hand">
                     <StackPanel HorizontalAlignment="Center">
-                        <Border Background="White" Width="48" Height="48" Margin="0,0,0,16">
-                            <Image Source="/Logo/SimNite_icon.png" Width="32" Height="32"/>
+                        <Border Background="White" Width="64" Height="64" Margin="0,0,0,16">
+                            <Image Source="/Logo/SimNite_icon.png" Width="48" Height="48"/>
                         </Border>
-                        <TextBlock Text="SIMNITE MANAGER" Foreground="{StaticResource SimNiteMutedBrush}" FontSize="12" FontWeight="SemiBold" HorizontalAlignment="Center"/>
+                        <TextBlock Text="SIMNITE MANAGER" Foreground="{StaticResource SimNiteMutedBrush}" FontSize="14" FontWeight="SemiBold" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </Button>
 
                 <!-- Navigation -->
-                <StackPanel Grid.Row="1" Margin="12,10,12,0">
+                <StackPanel Grid.Row="1" Margin="20,10,20,0">
+                    <StackPanel.Resources>
+                        <Style x:Key="NavButtonStyle" TargetType="Button">
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="BorderThickness" Value="0" />
+                            <Setter Property="Foreground" Value="{StaticResource SimNiteMutedBrush}" />
+                            <Setter Property="Padding" Value="24,16" />
+                            <Setter Property="Margin" Value="0,0,0,12" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="8">
+                                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="{StaticResource SimNiteInputHoverBrush}" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Resources>
+
                     <!-- Mods -->
-                    <Button Command="{Binding ShowModListCommand}" 
-                            Background="#1FF7C614" BorderBrush="{StaticResource SimNitePrimaryBrush}" BorderThickness="1"
-                            Foreground="{StaticResource SimNitePrimaryBrush}" FontWeight="SemiBold" Padding="16,12" Margin="0,0,0,8">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="180">
-                            <TextBlock Text="📦" Margin="0,0,12,0" FontSize="16"/>
-                            <TextBlock Text="Mods" FontSize="15" VerticalAlignment="Center"/>
+                    <Button Command="{Binding ShowModListCommand}" Padding="0">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource NavButtonStyle}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsModListActive}" Value="True">
+                                        <Setter Property="Background" Value="#1FF7C614" />
+                                        <Setter Property="BorderBrush" Value="{StaticResource SimNitePrimaryBrush}" />
+                                        <Setter Property="BorderThickness" Value="1" />
+                                        <Setter Property="Foreground" Value="{StaticResource SimNitePrimaryBrush}" />
+                                        <Setter Property="FontWeight" Value="SemiBold" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <StackPanel Orientation="Horizontal" Width="220">
+                            <TextBlock Text="📦" Margin="0,0,16,0" FontSize="22"/>
+                            <TextBlock Text="Mods" FontSize="18" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
                     
                     <!-- Profils -->
-                    <Button Command="{Binding ShowProfileCommand}" 
-                            Background="Transparent" BorderThickness="0"
-                            Foreground="{StaticResource SimNiteMutedBrush}" Padding="16,12" Margin="0,0,0,8">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="180">
-                            <TextBlock Text="📁" Margin="0,0,12,0" FontSize="16"/>
-                            <TextBlock Text="Profiles" FontSize="15" VerticalAlignment="Center"/>
+                    <Button Command="{Binding ShowProfileCommand}" Padding="0">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource NavButtonStyle}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsProfileActive}" Value="True">
+                                        <Setter Property="Background" Value="#1FF7C614" />
+                                        <Setter Property="BorderBrush" Value="{StaticResource SimNitePrimaryBrush}" />
+                                        <Setter Property="BorderThickness" Value="1" />
+                                        <Setter Property="Foreground" Value="{StaticResource SimNitePrimaryBrush}" />
+                                        <Setter Property="FontWeight" Value="SemiBold" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <StackPanel Orientation="Horizontal" Width="220">
+                            <TextBlock Text="📁" Margin="0,0,16,0" FontSize="22"/>
+                            <TextBlock Text="Profiles" FontSize="18" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 
                     <!-- Téléchargements -->
-                    <Button Command="{Binding ShowInstallCommand}" 
-                            Background="Transparent" BorderThickness="0"
-                            Foreground="{StaticResource SimNiteMutedBrush}" Padding="16,12" Margin="0,0,0,8">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="180">
-                            <TextBlock Text="⬇️" Margin="0,0,12,0" FontSize="16"/>
-                            <TextBlock Text="Downloads" FontSize="15" VerticalAlignment="Center"/>
-                            <Border Background="{StaticResource SimNitePrimaryBrush}" CornerRadius="10" Width="20" Height="20" Margin="10,0,0,0">
-                                <TextBlock Text="1" Foreground="#141414" FontSize="12" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
+                    <Button Command="{Binding ShowInstallCommand}" Padding="0">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource NavButtonStyle}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsInstallActive}" Value="True">
+                                        <Setter Property="Background" Value="#1FF7C614" />
+                                        <Setter Property="BorderBrush" Value="{StaticResource SimNitePrimaryBrush}" />
+                                        <Setter Property="BorderThickness" Value="1" />
+                                        <Setter Property="Foreground" Value="{StaticResource SimNitePrimaryBrush}" />
+                                        <Setter Property="FontWeight" Value="SemiBold" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <StackPanel Orientation="Horizontal" Width="220">
+                            <TextBlock Text="⬇️" Margin="0,0,16,0" FontSize="22"/>
+                            <TextBlock Text="Downloads" FontSize="18" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 
                     <!-- Paramètres -->
-                    <Button Command="{Binding ShowSettingsCommand}" 
-                            Background="Transparent" BorderThickness="0"
-                            Foreground="{StaticResource SimNiteMutedBrush}" Padding="16,12" Margin="0,0,0,8">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="180">
-                            <TextBlock Text="⚙️" Margin="0,0,12,0" FontSize="16"/>
-                            <TextBlock Text="Settings" FontSize="15" VerticalAlignment="Center"/>
+                    <Button Command="{Binding ShowSettingsCommand}" Padding="0">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource NavButtonStyle}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSettingsActive}" Value="True">
+                                        <Setter Property="Background" Value="#1FF7C614" />
+                                        <Setter Property="BorderBrush" Value="{StaticResource SimNitePrimaryBrush}" />
+                                        <Setter Property="BorderThickness" Value="1" />
+                                        <Setter Property="Foreground" Value="{StaticResource SimNitePrimaryBrush}" />
+                                        <Setter Property="FontWeight" Value="SemiBold" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <StackPanel Orientation="Horizontal" Width="220">
+                            <TextBlock Text="⚙️" Margin="0,0,16,0" FontSize="22"/>
+                            <TextBlock Text="Settings" FontSize="18" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
                 </StackPanel>
 
                 <!-- Footer Community Folder -->
-                <Border Grid.Row="2" Margin="20,0,20,20" Padding="12" Background="{StaticResource SimNitePanelBrush}" BorderThickness="1" BorderBrush="{StaticResource SimNiteBorderBrush}">
+                <Border Grid.Row="2" Margin="20,0,20,32" Padding="16" Background="{StaticResource SimNitePanelBrush}" BorderThickness="1" BorderBrush="{StaticResource SimNiteBorderBrush}">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="📁" Margin="0,0,12,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="📁" Margin="0,0,16,0" VerticalAlignment="Center" FontSize="20"/>
                         <StackPanel>
-                            <TextBlock Text="Community Folder" Foreground="{StaticResource SimNiteMutedBrush}" FontSize="12"/>
-                            <TextBlock Text="D:\MSFS\Community" Foreground="{StaticResource SimNiteTextBrush}" FontSize="10"/>
+                            <TextBlock Text="Community Folder" Foreground="{StaticResource SimNiteMutedBrush}" FontSize="14"/>
+                            <TextBlock Text="D:\MSFS\Community" Foreground="{StaticResource SimNiteTextBrush}" FontSize="12" TextTrimming="CharacterEllipsis" MaxWidth="180"/>
                         </StackPanel>
                     </StackPanel>
                 </Border>
