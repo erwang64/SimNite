@@ -85,3 +85,31 @@ public class BoolToConnectorConverter : IValueConverter
         throw new NotImplementedException();
     }
 }
+
+public class FileSizeConverter : IValueConverter
+{
+    private static readonly string[] SizeSuffixes = { "B", "KB", "MB", "GB", "TB", "PB", "EB" };
+
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        if (value is long bytes)
+        {
+            if (bytes == 0) return "0 B";
+
+            int mag = (int)Math.Log(bytes, 1024);
+            // Cap to highest suffix block
+            if (mag >= SizeSuffixes.Length) mag = SizeSuffixes.Length - 1;
+
+            decimal adjustedSize = (decimal)bytes / (1L << (mag * 10));
+
+            return string.Format("{0:n1} {1}", adjustedSize, SizeSuffixes[mag]);
+        }
+        
+        return value;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}

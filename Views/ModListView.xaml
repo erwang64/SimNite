@@ -86,12 +86,12 @@
                                                         </CheckBox>
 
                                                         <!-- Image Preview -->
-                                                        <Border Grid.Column="1" Width="80" Height="60" CornerRadius="8" Background="{StaticResource SimNiteSurfaceBrush}" BorderBrush="{StaticResource SimNiteBorderBrush}" BorderThickness="1" Margin="0,0,16,0" VerticalAlignment="Center">
+                                                        <Border Grid.Column="1" Width="80" Height="60" CornerRadius="8" Background="#111521" BorderBrush="{StaticResource SimNiteBorderBrush}" BorderThickness="1" Margin="0,0,16,0" VerticalAlignment="Center">
                                                             <Border.Clip>
                                                                 <RectangleGeometry RadiusX="8" RadiusY="8" Rect="0,0,80,60" />
                                                             </Border.Clip>
-                                                            <!-- If ImageUrl is null, fallback to transparent/empty box via WPF default behavior -->
-                                                            <Image Source="{Binding ImageUrl}" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                            <!-- Added inner Margin and changed Stretch to Uniform so logos are fully visible -->
+                                                            <Image Source="{Binding ImageUrl}" Stretch="Uniform" Margin="8" RenderOptions.BitmapScalingMode="HighQuality"/>
                                                         </Border>
 
                                                         <!-- Details -->
@@ -110,7 +110,7 @@
                                                                 </Border>
                                                                 
                                                                 <TextBlock Text="💾" Foreground="{StaticResource SimNiteMutedBrush}" FontSize="11" VerticalAlignment="Center" Margin="0,0,4,0"/>
-                                                                <TextBlock Text="{Binding SizeBytes}" Foreground="{StaticResource SimNiteTextBrush}" FontSize="12" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                                                                <TextBlock Text="{Binding SizeBytes, Converter={StaticResource FileSizeConverter}}" Foreground="{StaticResource SimNiteTextBrush}" FontSize="12" VerticalAlignment="Center" Margin="0,0,12,0"/>
                                                                 
                                                                 <TextBlock Text="by " Foreground="{StaticResource SimNiteMutedBrush}" FontSize="12" VerticalAlignment="Center"/>
                                                                 <TextBlock Text="{Binding Author}" Foreground="{StaticResource SimNiteTextBrush}" FontSize="12" VerticalAlignment="Center"/>

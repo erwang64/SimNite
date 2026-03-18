@@ -12,6 +12,7 @@
         <converters:BoolToStepTextConverter x:Key="BoolToStepTextConverter"/>
         <converters:BoolToFontWeightConverter x:Key="BoolToFontWeightConverter"/>
         <converters:BoolToConnectorConverter x:Key="BoolToConnectorConverter"/>
+        <converters:FileSizeConverter x:Key="FileSizeConverter"/>
         
         <!-- Dark theme palette (Lightened) -->
         <SolidColorBrush x:Key="SimNiteBackgroundBrush" Color="#1A1C23" />
