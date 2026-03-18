@@ -20,3 +20,7 @@ Data/mods.json
 *.log
 *.err
 TestResults/
+
+
+
+build_errors.txt
