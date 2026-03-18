@@ -8,6 +8,8 @@ obj/
 *.sln.docstates
 *.userprefs
 
+UML/
+
 # Local Data / Secrets
 Data/settings.json
 Data/mods.json
