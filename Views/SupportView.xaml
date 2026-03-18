@@ -1,0 +1,40 @@
+<UserControl x:Class="SimNite.Views.SupportView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Margin="6,0,0,12" Style="{StaticResource TitleTextStyle}" Text="Support SimNite" />
+
+        <Grid Grid.Row="1" Margin="6,0,6,16">
+            <Border Padding="40" Background="{StaticResource SimNitePanelBrush}" CornerRadius="12" VerticalAlignment="Center" HorizontalAlignment="Center" MaxWidth="800">
+                <StackPanel>
+                    <TextBlock Text="Support the Project ❤️" Foreground="{StaticResource SimNiteTextBrush}" FontSize="32" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,0,0,16"/>
+                    <TextBlock Text="SimNite is a free project. If this app has saved you time and you'd like to help me maintain it (and pay for my coffee while coding), you can donate via the links below!" 
+                               Foreground="{StaticResource SimNiteMutedBrush}" TextWrapping="Wrap" FontSize="16" TextAlignment="Center" LineHeight="24" Margin="0,0,0,40"/>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <!-- PayPal Button -->
+                        <Button Command="{Binding OpenPayPalCommand}" Width="240" Height="64" Margin="0,0,24,0" Background="#00457C" BorderThickness="0" Cursor="Hand">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBlock Text="💳" FontSize="20" Margin="0,0,12,0"/>
+                                <TextBlock Text="PayPal" FontSize="18" FontWeight="SemiBold" Foreground="White" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <!-- Buy Me a Coffee Button -->
+                        <Button Command="{Binding OpenBuyMeACoffeeCommand}" Width="240" Height="64" Background="#FFDD00" BorderThickness="0" Cursor="Hand">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBlock Text="☕" FontSize="20" Margin="0,0,12,0" Foreground="Black"/>
+                                <TextBlock Text="Buy me a coffee" FontSize="18" FontWeight="SemiBold" Foreground="Black" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

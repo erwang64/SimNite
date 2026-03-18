@@ -251,9 +251,12 @@
             <views:InstallView />
         </DataTemplate>
 
-
         <DataTemplate DataType="{x:Type viewModels:SettingsViewModel}">
             <views:SettingsView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModels:SupportViewModel}">
+            <views:SupportView />
         </DataTemplate>
 
     </Application.Resources>

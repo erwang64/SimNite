@@ -17,6 +17,7 @@ namespace SimNite
 
             // INITIALISER L'AUTO-UPDATER GITHUB
             // /!\ Attention : Remplacez 'VOTRE_NOM_GITHUB' par votre vrai pseudo GitHub /!\
+            AutoUpdater.HttpUserAgent = "SimNite-Updater";
             AutoUpdater.ParseUpdateInfoEvent += AutoUpdaterOnParseUpdateInfoEvent;
             AutoUpdater.Start("https://api.github.com/repos/erwang64/SimNite/releases/latest");
 

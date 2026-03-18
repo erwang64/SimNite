@@ -119,6 +119,28 @@
 
                 <!-- Footer Community Folder & Version -->
                 <StackPanel Grid.Row="2" Margin="20,0,20,32">
+                    
+                    <!-- Soutenir -->
+                    <Button Command="{Binding ShowSupportCommand}" Padding="0" Margin="0,0,0,16" HorizontalAlignment="Stretch">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource NavButtonStyle}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSupportActive}" Value="True">
+                                        <Setter Property="Background" Value="#1FF7C614" />
+                                        <Setter Property="BorderBrush" Value="{StaticResource SimNitePrimaryBrush}" />
+                                        <Setter Property="BorderThickness" Value="1" />
+                                        <Setter Property="Foreground" Value="{StaticResource SimNitePrimaryBrush}" />
+                                        <Setter Property="FontWeight" Value="SemiBold" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <StackPanel Orientation="Horizontal" Width="220">
+                            <TextBlock Text="❤️" Margin="0,0,16,0" FontSize="22"/>
+                            <TextBlock Text="Support" FontSize="18" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
                     <Border Padding="16" Background="{StaticResource SimNitePanelBrush}" BorderThickness="1" BorderBrush="{StaticResource SimNiteBorderBrush}" Margin="0,0,0,12">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="📁" Margin="0,0,16,0" VerticalAlignment="Center" FontSize="20"/>
@@ -129,7 +151,7 @@
                         </StackPanel>
                     </Border>
                     
-                    <TextBlock Text="SimNite v0.1" Foreground="{StaticResource SimNiteMutedBrush}" FontSize="12" HorizontalAlignment="Center" Opacity="0.5"/>
+                    <TextBlock Text="SimNite v0.1.1" Foreground="{StaticResource SimNiteMutedBrush}" FontSize="12" HorizontalAlignment="Center" Opacity="0.5"/>
                 </StackPanel>
             </Grid>
         </Border>

@@ -21,6 +21,7 @@ public class MainViewModel : BaseViewModel
 		ModListViewModel = new ModListViewModel(databaseService, profileService);
 		InstallViewModel = new InstallViewModel(downloadService, installService);
 		SettingsViewModel = new SettingsViewModel(profileService);
+		SupportViewModel = new SupportViewModel();
 
 		// Initialiser les étapes de navigation
 		_steps = new ObservableCollection<NavigationStep>
@@ -38,6 +39,7 @@ public class MainViewModel : BaseViewModel
 		ShowModListCommand = new RelayCommand(_ => NavigateToModList());
 		ShowInstallCommand = new RelayCommand(_ => NavigateToInstall());
 		ShowSettingsCommand = new RelayCommand(_ => NavigateToSettings());
+		ShowSupportCommand = new RelayCommand(_ => NavigateToSupport());
 
 		ModListViewModel.InstallRequested += OnInstallRequested;
 	}
@@ -64,6 +66,7 @@ public class MainViewModel : BaseViewModel
 				OnPropertyChanged(nameof(IsModListActive));
 				OnPropertyChanged(nameof(IsInstallActive));
 				OnPropertyChanged(nameof(IsSettingsActive));
+				OnPropertyChanged(nameof(IsSupportActive));
 			}
 		}
 	}
@@ -84,6 +87,8 @@ public class MainViewModel : BaseViewModel
 
 	public SettingsViewModel SettingsViewModel { get; }
 
+	public SupportViewModel SupportViewModel { get; }
+
 	public ICommand ShowWelcomeCommand { get; }
 
 	public ICommand ShowModListCommand { get; }
@@ -92,9 +97,12 @@ public class MainViewModel : BaseViewModel
 
 	public ICommand ShowSettingsCommand { get; }
 
+	public ICommand ShowSupportCommand { get; }
+
 	public bool IsModListActive => CurrentViewModel == ModListViewModel;
 	public bool IsInstallActive => CurrentViewModel == InstallViewModel;
 	public bool IsSettingsActive => CurrentViewModel == SettingsViewModel;
+	public bool IsSupportActive => CurrentViewModel == SupportViewModel;
 
 	private void UpdateStepStatus()
 	{
@@ -127,4 +135,5 @@ public class MainViewModel : BaseViewModel
 	private void NavigateToModList() => CurrentViewModel = ModListViewModel;
 	private void NavigateToInstall() => CurrentViewModel = InstallViewModel;
 	private void NavigateToSettings() => CurrentViewModel = SettingsViewModel;
+	private void NavigateToSupport() => CurrentViewModel = SupportViewModel;
 }
