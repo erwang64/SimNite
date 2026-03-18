@@ -88,7 +88,7 @@ public class InstallService : IInstallService
 		}
 	}
 
-	public Task LaunchInstallerAsync(string installerPath, CancellationToken cancellationToken)
+	public async Task LaunchInstallerAsync(string installerPath, CancellationToken cancellationToken)
 	{
 		if (string.IsNullOrWhiteSpace(installerPath))
 		{
@@ -111,10 +111,10 @@ public class InstallService : IInstallService
 				WorkingDirectory = Path.GetDirectoryName(installerPath) ?? string.Empty
 			};
 
-			_ = Process.Start(startInfo)
+			var process = Process.Start(startInfo)
 				?? throw new InvalidOperationException($"Unable to start installer '{installerPath}'.");
 
-			return Task.CompletedTask;
+			await process.WaitForExitAsync(cancellationToken);
 		}
 		catch (OperationCanceledException)
 		{

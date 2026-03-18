@@ -81,27 +81,51 @@ public class InstallViewModel : BaseViewModel
 
 			int completedCount = 0;
 			int totalTasks = Tasks.Count;
+			var tempDir = Path.Combine(Path.GetTempPath(), "SimNite", "Downloads");
+			Directory.CreateDirectory(tempDir);
 
-			foreach (var task in Tasks)
+			// File d'attente pour télécharger 1 fichier à la fois en arrière-plan sans engorger le réseau
+			using var downloadSemaphore = new SemaphoreSlim(1, 1);
+
+			// Initialiser la phase de téléchargement en arrière-plan
+			var downloadTasks = Tasks.Select(async task => 
 			{
-				task.Status = InstallStatus.Downloading;
-				
-				var tempDir = Path.Combine(Path.GetTempPath(), "SimNite", "Downloads");
-				Directory.CreateDirectory(tempDir);
-
-				var progressIndicator = new Progress<double>(p => 
+				await downloadSemaphore.WaitAsync();
+				try
 				{
-					task.Progress = p;
-					OverallProgress = (completedCount * 100.0 + p) / totalTasks;
-				});
+					task.Status = InstallStatus.Downloading;
+					var progressIndicator = new Progress<double>(p => 
+					{
+						task.Progress = p;
+						// Petite estimation globale pendant le téléchargement (Optionnel)
+					});
+					
+					var path = await _downloadService.DownloadFileAsync(task.Mod.DownloadUrl, tempDir, progressIndicator, CancellationToken.None);
+					task.Status = InstallStatus.Pending; // Passe en attente d'installation
+					return path;
+				}
+				finally
+				{
+					downloadSemaphore.Release();
+				}
+			}).ToList();
 
-				CurrentStep = $"Downloading {task.Mod.Name}...";
-				var downloadedFile = await _downloadService.DownloadFileAsync(task.Mod.DownloadUrl, tempDir, progressIndicator, CancellationToken.None);
+			// Phase d'installation séquentielle
+			for (int i = 0; i < totalTasks; i++)
+			{
+				var task = Tasks[i];
+				
+				if (task.Status == InstallStatus.Downloading || task.Status == InstallStatus.Pending) 
+				{
+					CurrentStep = $"Attente du téléchargement de {task.Mod.Name}...";
+				}
+
+				// On attend le fichier de notre mod spécifique (téléchargé en fond)
+				var downloadedFile = await downloadTasks[i];
 
 				task.Status = InstallStatus.Extracting;
-				CurrentStep = $"Starting installer for {task.Mod.Name}...";
+				CurrentStep = $"Lancement de l'installateur : {task.Mod.Name}...";
 				
-				// Assumes community folder path is set somewhere, but for FlyByWire (Assisted/ExternalInstaller), it's ignored anyway.
 				await _installService.InstallModAsync(task.Mod, downloadedFile, "C:\\TempCommunityManager", CancellationToken.None);
 
 				task.Status = InstallStatus.Completed;
@@ -110,7 +134,7 @@ public class InstallViewModel : BaseViewModel
 				OverallProgress = (completedCount * 100.0) / totalTasks;
 			}
 
-			CurrentStep = "Installation session completed.";
+			CurrentStep = "Toutes les installations sont terminées.";
 		}
 		catch (Exception ex)
 		{
