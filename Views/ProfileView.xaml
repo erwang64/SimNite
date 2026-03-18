@@ -12,7 +12,7 @@
 
         <TextBlock Margin="6,0,0,12" Style="{StaticResource TitleTextStyle}" Text="Profils" />
 
-        <Border Grid.Row="1" Padding="16" Background="White">
+        <Border Grid.Row="1" Padding="16" Background="{StaticResource SimNitePanelBrush}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />

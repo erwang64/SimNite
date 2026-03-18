@@ -10,63 +10,147 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Border Margin="16,16,16,10" Padding="20" Background="{StaticResource SimNitePanelBrush}">
+        <!-- Navigation Header -->
+        <Border Grid.Row="0" 
+                Background="{StaticResource SimNitePanelBrush}"
+                BorderBrush="{StaticResource SimNiteBorderBrush}"
+                BorderThickness="0,0,0,1"
+                Padding="0">
             <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
-                <StackPanel>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <Image Width="54"
-                               Height="54"
-                               Margin="0,0,14,0"
-                               Source="/Logo/SimNite_icon.png"
-                               Stretch="Uniform" />
-                        <Image Height="48"
-                               Source="/Logo/SimNite_text.png"
-                               Stretch="Uniform" />
+                <!-- Top Bar with Logo -->
+                <Border Grid.Row="0" Padding="24,16,24,8">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Logo and Title -->
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Image Width="40"
+                                   Height="40"
+                                   Margin="0,0,12,0"
+                                   Source="/Logo/SimNite_icon.png"
+                                   Stretch="Uniform">
+                                <Image.Effect>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="0" Color="#F7C614" Opacity="0.3"/>
+                                </Image.Effect>
+                            </Image>
+                            <TextBlock Text="SimNite" 
+                                       FontSize="24" 
+                                       FontWeight="Bold" 
+                                       Foreground="{StaticResource SimNiteTextBrush}"
+                                       VerticalAlignment="Center"
+                                       FontFamily="Segoe UI Variable"/>
+                        </StackPanel>
+
+                        <!-- Quick Actions -->
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                            <Button Name="WelcomeButton"
+                                    Style="{StaticResource NavButtonStyle}"
+                                    Command="{Binding ShowWelcomeCommand}"
+                                    Padding="12,6"
+                                    Margin="0,0,8,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="🏠" Margin="0,0,6,0"/>
+                                    <TextBlock Text="Accueil"/>
+                                </StackPanel>
+                            </Button>
+                            <Button Name="SettingsButton"
+                                    Style="{StaticResource NavButtonStyle}"
+                                    Command="{Binding ShowSettingsCommand}"
+                                    Padding="12,6">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="⚙️" Margin="0,0,6,0"/>
+                                    <TextBlock Text="Paramètres"/>
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Step Navigation -->
+                <Border Grid.Row="1" Padding="24,0,24,16">
+                    <StackPanel>
+                        <!-- Step Indicator -->
+                        <ItemsControl ItemsSource="{Binding Steps}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- Step Circle -->
+                                        <Border Grid.Column="0"
+                                                Width="36"
+                                                Height="36"
+                                                CornerRadius="18"
+                                                Background="{Binding IsCurrent, Converter={StaticResource BoolToStepBackgroundConverter}}"
+                                                BorderBrush="{Binding IsCompleted, Converter={StaticResource BoolToStepBorderConverter}}"
+                                                BorderThickness="2"
+                                                Margin="0,0,12,0">
+                                            <TextBlock Text="{Binding Number}"
+                                                       FontSize="14"
+                                                       FontWeight="Bold"
+                                                       Foreground="{Binding IsCurrent, Converter={StaticResource BoolToStepTextConverter}}"
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"/>
+                                        </Border>
+
+                                        <!-- Step Content -->
+                                        <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="0,0,16,0">
+                                            <Button Content="{Binding Title}"
+                                                    Command="{Binding NavigateCommand}"
+                                                    Style="{x:Null}"
+                                                    Background="Transparent"
+                                                    BorderThickness="0"
+                                                    Padding="0"
+                                                    FontSize="14"
+                                                    FontWeight="{Binding IsCurrent, Converter={StaticResource BoolToFontWeightConverter}}"
+                                                    Foreground="{Binding IsCurrent, Converter={StaticResource BoolToStepTextConverter}}"
+                                                    Cursor="Hand"/>
+                                            <TextBlock Text="{Binding Description}"
+                                                       FontSize="12"
+                                                       Foreground="{StaticResource SimNiteMutedBrush}"
+                                                       Margin="0,2,0,0"/>
+                                        </StackPanel>
+
+                                        <!-- Connector Line -->
+                                        <Border Grid.Column="2"
+                                                Width="40"
+                                                Height="2"
+                                                Background="{Binding IsCompleted, Converter={StaticResource BoolToConnectorConverter}}"
+                                                VerticalAlignment="Center"
+                                                Margin="0,0,8,0"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                     </StackPanel>
-
-                    <TextBlock Margin="0,8,0,10"
-                               FontSize="15"
-                               Foreground="{StaticResource SimNiteMutedBrush}"
-                               Text="Reinstalle tous tes mods MSFS en un seul clic." />
-
-                    <StackPanel Orientation="Horizontal">
-                        <Button Margin="0,0,8,0"
-                                Style="{StaticResource NavButtonStyle}"
-                                Command="{Binding ShowModListCommand}"
-                                Content="Catalogue" />
-                        <Button Margin="0,0,8,0"
-                                Style="{StaticResource NavButtonStyle}"
-                                Command="{Binding ShowInstallCommand}"
-                                Content="Installation" />
-                        <Button Margin="0,0,8,0"
-                                Style="{StaticResource NavButtonStyle}"
-                                Command="{Binding ShowProfileCommand}"
-                                Content="Profils" />
-                        <Button Style="{StaticResource NavButtonStyle}"
-                                Command="{Binding ShowSettingsCommand}"
-                                Content="Parametres" />
-                    </StackPanel>
-                </StackPanel>
-
-                <Image Grid.Column="1"
-                       Width="120"
-                       Height="120"
-                       Margin="24,0,0,0"
-                       VerticalAlignment="Center"
-                       Source="/Logo/SimNite_icon.png"
-                       Stretch="Uniform" />
+                </Border>
             </Grid>
         </Border>
 
+        <!-- Content Area -->
         <Border Grid.Row="1"
-                Margin="16,0,16,16"
-                Padding="14"
-                Background="{StaticResource SimNiteSurfaceBrush}">
+                Margin="24,16,24,24"
+                Background="{StaticResource SimNiteSurfaceBrush}"
+                CornerRadius="16"
+                BorderBrush="{StaticResource SimNiteBorderBrush}"
+                BorderThickness="1">
             <ContentControl Content="{Binding CurrentViewModel}" />
         </Border>
     </Grid>
