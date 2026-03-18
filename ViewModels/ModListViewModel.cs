@@ -47,6 +47,7 @@ public class ModListViewModel : BaseViewModel
 				
                 ImportProfileCommand = new RelayCommand(_ => ImportProfileAsync(), _ => !IsLoading);
                 ExportProfileCommand = new RelayCommand(_ => ExportProfileAsync(), _ => SelectedMods.Count > 0 && !IsLoading);
+                ClearSelectionCommand = new RelayCommand(_ => ClearSelection(), _ => SelectedMods.Count > 0);
 
                 // Event subscriptions handled in LoadModsAsync
         }
@@ -74,6 +75,8 @@ public class ModListViewModel : BaseViewModel
         public ICommand ImportProfileCommand { get; }
         
         public ICommand ExportProfileCommand { get; }
+
+        public ICommand ClearSelectionCommand { get; }
 
 	public string SearchText
 	{
@@ -149,6 +152,8 @@ public class ModListViewModel : BaseViewModel
 			
 			OnPropertyChanged(nameof(SelectedMods));
 			(InstallSelectionCommand as RelayCommand)?.RaiseCanExecuteChanged();
+			(ExportProfileCommand as RelayCommand)?.RaiseCanExecuteChanged();
+			(ClearSelectionCommand as RelayCommand)?.RaiseCanExecuteChanged();
 		}
 	}
 
@@ -217,6 +222,8 @@ public class ModListViewModel : BaseViewModel
 		}
 		OnPropertyChanged(nameof(SelectedMods));
 		(InstallSelectionCommand as RelayCommand)?.RaiseCanExecuteChanged();
+		(ExportProfileCommand as RelayCommand)?.RaiseCanExecuteChanged();
+		(ClearSelectionCommand as RelayCommand)?.RaiseCanExecuteChanged();
 	}
 
 	private void ClearFilters()
@@ -268,8 +275,17 @@ public class ModListViewModel : BaseViewModel
 		(CancelLoadCommand as RelayCommand)?.RaiseCanExecuteChanged();
 		(ImportProfileCommand as RelayCommand)?.RaiseCanExecuteChanged();
 		(ExportProfileCommand as RelayCommand)?.RaiseCanExecuteChanged();
+		(ClearSelectionCommand as RelayCommand)?.RaiseCanExecuteChanged();
 	}
 	
+	private void ClearSelection()
+	{
+		foreach (var mod in _allMods.Where(m => m.IsChecked))
+		{
+			mod.IsChecked = false;
+		}
+	}
+
 	private async Task ImportProfileAsync()
 	{
 		var dialog = new Microsoft.Win32.OpenFileDialog
