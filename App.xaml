@@ -13,19 +13,19 @@
         <converters:BoolToFontWeightConverter x:Key="BoolToFontWeightConverter"/>
         <converters:BoolToConnectorConverter x:Key="BoolToConnectorConverter"/>
         
-        <!-- Dark theme palette -->
-        <SolidColorBrush x:Key="SimNiteBackgroundBrush" Color="#0F1115" />
-        <SolidColorBrush x:Key="SimNiteSurfaceBrush" Color="#151821" />
-        <SolidColorBrush x:Key="SimNitePanelBrush" Color="#1B2030" />
-        <SolidColorBrush x:Key="SimNiteBorderBrush" Color="#2A3042" />
+        <!-- Dark theme palette (Lightened) -->
+        <SolidColorBrush x:Key="SimNiteBackgroundBrush" Color="#1A1C23" />
+        <SolidColorBrush x:Key="SimNiteSurfaceBrush" Color="#222530" />
+        <SolidColorBrush x:Key="SimNitePanelBrush" Color="#2A2E3B" />
+        <SolidColorBrush x:Key="SimNiteBorderBrush" Color="#383D4F" />
         <SolidColorBrush x:Key="SimNitePrimaryBrush" Color="#F7C614" />
         <SolidColorBrush x:Key="SimNiteTextBrush" Color="#E6E8EE" />
-        <SolidColorBrush x:Key="SimNiteMutedBrush" Color="#A4A9B6" />
-        <SolidColorBrush x:Key="SimNiteErrorBrush" Color="#FF5C5C" />
-        <SolidColorBrush x:Key="SimNiteSuccessBrush" Color="#4ADE80" />
+        <SolidColorBrush x:Key="SimNiteMutedBrush" Color="#B4B9C6" />
+        <SolidColorBrush x:Key="SimNiteErrorBrush" Color="#FF6C6C" />
+        <SolidColorBrush x:Key="SimNiteSuccessBrush" Color="#5AE890" />
 
-        <SolidColorBrush x:Key="SimNiteInputBrush" Color="#121521" />
-        <SolidColorBrush x:Key="SimNiteInputHoverBrush" Color="#161B2A" />
+        <SolidColorBrush x:Key="SimNiteInputBrush" Color="#1E212B" />
+        <SolidColorBrush x:Key="SimNiteInputHoverBrush" Color="#242834" />
         <SolidColorBrush x:Key="SimNiteSelectionBrush" Color="#33F7C614" />
         <SolidColorBrush x:Key="SimNiteShadowBrush" Color="#66000000" />
 

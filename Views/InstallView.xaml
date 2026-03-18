@@ -12,11 +12,11 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TextBlock Style="{StaticResource TitleTextStyle}" Text="Progression d'installation" />
+        <TextBlock Style="{StaticResource TitleTextStyle}" Text="Installation Progress" />
 
         <Border Grid.Row="1" Margin="0,12,0,10" Padding="14" Background="{StaticResource SimNitePanelBrush}">
             <StackPanel>
-                <TextBlock FontWeight="SemiBold" Text="Etape en cours" />
+                <TextBlock FontWeight="SemiBold" Text="Current Step" />
                 <TextBlock Margin="0,4,0,0" FontSize="14" Foreground="{StaticResource SimNiteMutedBrush}" Text="{Binding CurrentStep}" />
             </StackPanel>
         </Border>
@@ -29,7 +29,7 @@
 
         <StackPanel Grid.Row="3" Margin="0,12,0,0">
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <Button Margin="0,0,8,0" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding StartSimulationCommand}" Content="Demarrer installation" />
+                <Button Margin="0,0,8,0" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding StartSimulationCommand}" Content="Start installation" />
                 <Button Command="{Binding ResetCommand}" Content="Reset" />
             </StackPanel>
 
@@ -40,8 +40,8 @@
                           ItemsSource="{Binding Tasks}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Width="2*" Header="Mod" Binding="{Binding Mod.Name}" />
-                        <DataGridTextColumn Width="*" Header="Statut" Binding="{Binding Status}" />
-                        <DataGridTextColumn Width="*" Header="Progression" Binding="{Binding Progress}" />
+                        <DataGridTextColumn Width="*" Header="Status" Binding="{Binding Status}" />
+                        <DataGridTextColumn Width="*" Header="Progress" Binding="{Binding Progress}" />
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>

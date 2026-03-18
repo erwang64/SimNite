@@ -8,7 +8,7 @@
         </Grid.ColumnDefinitions>
 
         <!-- Sidebar -->
-        <Border Grid.Column="0" Background="#111111" BorderBrush="#1C1C1C" BorderThickness="0,0,1,0">
+        <Border Grid.Column="0" Background="{StaticResource SimNiteSurfaceBrush}" BorderBrush="{StaticResource SimNiteBorderBrush}" BorderThickness="0,0,1,0">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -22,7 +22,7 @@
                         <Border Background="White" Width="48" Height="48" Margin="0,0,0,16">
                             <Image Source="/Logo/SimNite_icon.png" Width="32" Height="32"/>
                         </Border>
-                        <TextBlock Text="SIMNITE MANAGER" Foreground="#666666" FontSize="12" FontWeight="SemiBold" HorizontalAlignment="Center"/>
+                        <TextBlock Text="SIMNITE MANAGER" Foreground="{StaticResource SimNiteMutedBrush}" FontSize="12" FontWeight="SemiBold" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </Button>
 
@@ -30,8 +30,8 @@
                 <StackPanel Grid.Row="1" Margin="12,10,12,0">
                     <!-- Mods -->
                     <Button Command="{Binding ShowModListCommand}" 
-                            Background="#1A1706" BorderBrush="#D4A017" BorderThickness="1"
-                            Foreground="#F7C614" FontWeight="SemiBold" Padding="16,12" Margin="0,0,0,8">
+                            Background="#1FF7C614" BorderBrush="{StaticResource SimNitePrimaryBrush}" BorderThickness="1"
+                            Foreground="{StaticResource SimNitePrimaryBrush}" FontWeight="SemiBold" Padding="16,12" Margin="0,0,0,8">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="180">
                             <TextBlock Text="📦" Margin="0,0,12,0" FontSize="16"/>
                             <TextBlock Text="Mods" FontSize="15" VerticalAlignment="Center"/>
@@ -41,22 +41,22 @@
                     <!-- Profils -->
                     <Button Command="{Binding ShowProfileCommand}" 
                             Background="Transparent" BorderThickness="0"
-                            Foreground="#AAAAAA" Padding="16,12" Margin="0,0,0,8">
+                            Foreground="{StaticResource SimNiteMutedBrush}" Padding="16,12" Margin="0,0,0,8">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="180">
                             <TextBlock Text="📁" Margin="0,0,12,0" FontSize="16"/>
-                            <TextBlock Text="Profils" FontSize="15" VerticalAlignment="Center"/>
+                            <TextBlock Text="Profiles" FontSize="15" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 
                     <!-- Téléchargements -->
                     <Button Command="{Binding ShowInstallCommand}" 
                             Background="Transparent" BorderThickness="0"
-                            Foreground="#AAAAAA" Padding="16,12" Margin="0,0,0,8">
+                            Foreground="{StaticResource SimNiteMutedBrush}" Padding="16,12" Margin="0,0,0,8">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="180">
                             <TextBlock Text="⬇️" Margin="0,0,12,0" FontSize="16"/>
-                            <TextBlock Text="Téléchargements" FontSize="15" VerticalAlignment="Center"/>
-                            <Border Background="#F7C614" CornerRadius="10" Width="20" Height="20" Margin="10,0,0,0">
-                                <TextBlock Text="1" Foreground="Black" FontSize="12" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Text="Downloads" FontSize="15" VerticalAlignment="Center"/>
+                            <Border Background="{StaticResource SimNitePrimaryBrush}" CornerRadius="10" Width="20" Height="20" Margin="10,0,0,0">
+                                <TextBlock Text="1" Foreground="#141414" FontSize="12" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Border>
                         </StackPanel>
                     </Button>
@@ -64,21 +64,21 @@
                     <!-- Paramètres -->
                     <Button Command="{Binding ShowSettingsCommand}" 
                             Background="Transparent" BorderThickness="0"
-                            Foreground="#AAAAAA" Padding="16,12" Margin="0,0,0,8">
+                            Foreground="{StaticResource SimNiteMutedBrush}" Padding="16,12" Margin="0,0,0,8">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="180">
                             <TextBlock Text="⚙️" Margin="0,0,12,0" FontSize="16"/>
-                            <TextBlock Text="Paramètres" FontSize="15" VerticalAlignment="Center"/>
+                            <TextBlock Text="Settings" FontSize="15" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
                 </StackPanel>
 
                 <!-- Footer Community Folder -->
-                <Border Grid.Row="2" Margin="20,0,20,20" Padding="12" Background="#151515" BorderThickness="1" BorderBrush="#1C1C1C">
+                <Border Grid.Row="2" Margin="20,0,20,20" Padding="12" Background="{StaticResource SimNitePanelBrush}" BorderThickness="1" BorderBrush="{StaticResource SimNiteBorderBrush}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="📁" Margin="0,0,12,0" VerticalAlignment="Center"/>
                         <StackPanel>
-                            <TextBlock Text="Community Folder" Foreground="#AAAAAA" FontSize="12"/>
-                            <TextBlock Text="D:\MSFS\Community" Foreground="#666666" FontSize="10"/>
+                            <TextBlock Text="Community Folder" Foreground="{StaticResource SimNiteMutedBrush}" FontSize="12"/>
+                            <TextBlock Text="D:\MSFS\Community" Foreground="{StaticResource SimNiteTextBrush}" FontSize="10"/>
                         </StackPanel>
                     </StackPanel>
                 </Border>
@@ -86,7 +86,7 @@
         </Border>
 
         <!-- Content Area -->
-        <Border Grid.Column="1" Background="#0B0B0C">
+        <Border Grid.Column="1" Background="{StaticResource SimNiteBackgroundBrush}">
             <ContentControl Content="{Binding CurrentViewModel}" />
         </Border>
     </Grid>

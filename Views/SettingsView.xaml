@@ -10,7 +10,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TextBlock Margin="6,0,0,12" Style="{StaticResource TitleTextStyle}" Text="Parametres" />
+        <TextBlock Margin="6,0,0,12" Style="{StaticResource TitleTextStyle}" Text="Settings" />
 
         <Border Grid.Row="1" Padding="16" Background="{StaticResource SimNitePanelBrush}">
             <Grid>
@@ -27,7 +27,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,0,12,8" VerticalAlignment="Center" Foreground="{StaticResource SimNiteMutedBrush}" Text="Fichier settings" />
+                <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,0,12,8" VerticalAlignment="Center" Foreground="{StaticResource SimNiteMutedBrush}" Text="Settings File" />
                 <TextBox Grid.Row="0" Grid.Column="1" Height="36" Margin="0,0,0,8" Text="{Binding SettingsPath, UpdateSourceTrigger=PropertyChanged}" />
 
                 <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,0,12,8" VerticalAlignment="Center" Foreground="{StaticResource SimNiteMutedBrush}" Text="Community Folder" />
@@ -40,9 +40,9 @@
                 <TextBox Grid.Row="3" Grid.Column="1" Height="36" Margin="0,0,0,8" Text="{Binding MaxConcurrentDownloads, UpdateSourceTrigger=PropertyChanged}" />
 
                 <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="0,6,0,8">
-                    <Button Margin="0,0,8,0" Command="{Binding LoadSettingsCommand}" Content="Charger" />
-                    <Button Margin="0,0,8,0" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding SaveSettingsCommand}" Content="Sauvegarder" />
-                    <Button Command="{Binding DetectCommunityFolderCommand}" Content="Detecter Community" />
+                    <Button Margin="0,0,8,0" Command="{Binding LoadSettingsCommand}" Content="Load" />
+                    <Button Margin="0,0,8,0" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding SaveSettingsCommand}" Content="Save" />
+                    <Button Command="{Binding DetectCommunityFolderCommand}" Content="Detect Community" />
                 </StackPanel>
 
                 <TextBlock Grid.Row="5"
