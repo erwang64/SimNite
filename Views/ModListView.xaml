@@ -170,8 +170,9 @@
                 <!-- Bottom Actions -->
                 <StackPanel Grid.Row="2">
                     <TextBlock Text="{Binding SelectedMods.Count, StringFormat='{}{0} mods selected'}" Foreground="{StaticResource SimNiteMutedBrush}" FontSize="12" Margin="0,0,0,12"/>
-                    <Button Content="Export to profile" Background="{StaticResource SimNiteInputBrush}" Foreground="{StaticResource SimNiteTextBrush}" BorderBrush="{StaticResource SimNiteBorderBrush}" BorderThickness="1" Padding="0,12" FontSize="14" Margin="0,0,0,12"/>
-                    <Button Content="Install selection" Command="{Binding InstallSelectionCommand}" Background="{StaticResource SimNiteInputBrush}" Foreground="{StaticResource SimNiteTextBrush}" BorderBrush="{StaticResource SimNiteBorderBrush}" BorderThickness="1" Padding="0,12" FontSize="14"/>
+                    <Button Content="Import profile" Command="{Binding ImportProfileCommand}" Background="{StaticResource SimNiteInputHoverBrush}" Foreground="{StaticResource SimNiteTextBrush}" BorderBrush="{StaticResource SimNiteBorderBrush}" BorderThickness="1" Padding="0,12" FontSize="14" Margin="0,0,0,12" Cursor="Hand"/>
+                    <Button Content="Export to profile" Command="{Binding ExportProfileCommand}" Background="{StaticResource SimNiteInputBrush}" Foreground="{StaticResource SimNiteTextBrush}" BorderBrush="{StaticResource SimNiteBorderBrush}" BorderThickness="1" Padding="0,12" FontSize="14" Margin="0,0,0,12" Cursor="Hand"/>
+                    <Button Content="Install selection" Command="{Binding InstallSelectionCommand}" Background="{StaticResource SimNitePrimaryBrush}" Foreground="#141414" FontWeight="SemiBold" BorderThickness="0" Padding="0,12" FontSize="14" Cursor="Hand"/>
                 </StackPanel>
             </Grid>
         </Border>

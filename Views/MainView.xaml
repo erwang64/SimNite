@@ -16,11 +16,16 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <Button Grid.Row="0" Command="{Binding ShowWelcomeCommand}" Background="Transparent" BorderThickness="0" Margin="0,32,0,32" Cursor="Hand">
-                    <Border Background="White" CornerRadius="12" Padding="24,16" Margin="24,0,24,0" HorizontalAlignment="Stretch">
-                        <Image Source="/Logo/LogoFull.png" Stretch="Uniform" Height="50"/>
-                    </Border>
-                </Button>
+                <Border Grid.Row="0" Background="White" Margin="0,0,0,32" Padding="20,40,20,30">
+                    <Button Command="{Binding ShowWelcomeCommand}" Background="Transparent" BorderThickness="0" Cursor="Hand" HorizontalAlignment="Stretch">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Image Source="/Logo/LogoFull.png" Stretch="Uniform" Height="100" HorizontalAlignment="Center"/>
+                    </Button>
+                </Border>
 
                 <!-- Navigation -->
                 <StackPanel Grid.Row="1" Margin="20,10,20,0">
@@ -66,27 +71,6 @@
                         <StackPanel Orientation="Horizontal" Width="220">
                             <TextBlock Text="📦" Margin="0,0,16,0" FontSize="22"/>
                             <TextBlock Text="Mods" FontSize="18" VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </Button>
-                    
-                    <!-- Profils -->
-                    <Button Command="{Binding ShowProfileCommand}" Padding="0">
-                        <Button.Style>
-                            <Style TargetType="Button" BasedOn="{StaticResource NavButtonStyle}">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsProfileActive}" Value="True">
-                                        <Setter Property="Background" Value="#1FF7C614" />
-                                        <Setter Property="BorderBrush" Value="{StaticResource SimNitePrimaryBrush}" />
-                                        <Setter Property="BorderThickness" Value="1" />
-                                        <Setter Property="Foreground" Value="{StaticResource SimNitePrimaryBrush}" />
-                                        <Setter Property="FontWeight" Value="SemiBold" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                        <StackPanel Orientation="Horizontal" Width="220">
-                            <TextBlock Text="📁" Margin="0,0,16,0" FontSize="22"/>
-                            <TextBlock Text="Profiles" FontSize="18" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 

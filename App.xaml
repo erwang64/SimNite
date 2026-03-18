@@ -250,9 +250,6 @@
             <views:InstallView />
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type viewModels:ProfileViewModel}">
-            <views:ProfileView />
-        </DataTemplate>
 
         <DataTemplate DataType="{x:Type viewModels:SettingsViewModel}">
             <views:SettingsView />

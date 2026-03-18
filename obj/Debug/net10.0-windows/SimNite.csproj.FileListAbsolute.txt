@@ -22,12 +22,10 @@ C:\wamp64\www\SimNite\obj\Debug\net10.0-windows\ref\SimNite.dll
 C:\wamp64\www\SimNite\obj\Debug\net10.0-windows\Views\InstallView.baml
 C:\wamp64\www\SimNite\obj\Debug\net10.0-windows\Views\MainView.baml
 C:\wamp64\www\SimNite\obj\Debug\net10.0-windows\Views\ModListView.baml
-C:\wamp64\www\SimNite\obj\Debug\net10.0-windows\Views\ProfileView.baml
 C:\wamp64\www\SimNite\obj\Debug\net10.0-windows\Views\SettingsView.baml
 C:\wamp64\www\SimNite\obj\Debug\net10.0-windows\Views\InstallView.g.cs
 C:\wamp64\www\SimNite\obj\Debug\net10.0-windows\Views\MainView.g.cs
 C:\wamp64\www\SimNite\obj\Debug\net10.0-windows\Views\ModListView.g.cs
-C:\wamp64\www\SimNite\obj\Debug\net10.0-windows\Views\ProfileView.g.cs
 C:\wamp64\www\SimNite\obj\Debug\net10.0-windows\Views\SettingsView.g.cs
 C:\wamp64\www\SimNite\bin\Debug\net10.0-windows\Data\mods.json
 C:\wamp64\www\SimNite\obj\Debug\net10.0-windows\GeneratedInternalTypeHelper.g.cs

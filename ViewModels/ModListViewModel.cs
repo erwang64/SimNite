@@ -10,6 +10,7 @@ namespace SimNite.ViewModels;
 public class ModListViewModel : BaseViewModel
 {
 	private readonly IDatabaseService _databaseService;
+	private readonly IProfileService _profileService;
 	private readonly string _localDatabasePath;
 	private readonly string? _remoteDatabaseUrl;
 	private readonly List<Mod> _allMods = new();
@@ -19,9 +20,10 @@ public class ModListViewModel : BaseViewModel
 	private bool _isLoading;
 	private string? _errorMessage;
 
-	public ModListViewModel(IDatabaseService databaseService, string? localDatabasePath = null, string? remoteDatabaseUrl = null)
+	public ModListViewModel(IDatabaseService databaseService, IProfileService profileService, string? localDatabasePath = null, string? remoteDatabaseUrl = null)
 	{
 		_databaseService = databaseService ?? throw new ArgumentNullException(nameof(databaseService));
+		_profileService = profileService ?? throw new ArgumentNullException(nameof(profileService));
 		_localDatabasePath = localDatabasePath ?? Path.Combine(AppContext.BaseDirectory, "Data", "mods.json");
 		_remoteDatabaseUrl = remoteDatabaseUrl;
 
@@ -42,6 +44,9 @@ public class ModListViewModel : BaseViewModel
                         InstallRequested?.Invoke(SelectedMods.ToList());
                     }
                 }, _ => SelectedMods.Count > 0);
+				
+                ImportProfileCommand = new RelayCommand(_ => ImportProfileAsync(), _ => !IsLoading);
+                ExportProfileCommand = new RelayCommand(_ => ExportProfileAsync(), _ => SelectedMods.Count > 0 && !IsLoading);
 
                 // Event subscriptions handled in LoadModsAsync
         }
@@ -65,6 +70,10 @@ public class ModListViewModel : BaseViewModel
         public ICommand CancelLoadCommand { get; }
 
         public ICommand InstallSelectionCommand { get; }
+        
+        public ICommand ImportProfileCommand { get; }
+        
+        public ICommand ExportProfileCommand { get; }
 
 	public string SearchText
 	{
@@ -257,5 +266,77 @@ public class ModListViewModel : BaseViewModel
 		(RefreshModsCommand as RelayCommand)?.RaiseCanExecuteChanged();
 		(ClearFiltersCommand as RelayCommand)?.RaiseCanExecuteChanged();
 		(CancelLoadCommand as RelayCommand)?.RaiseCanExecuteChanged();
+		(ImportProfileCommand as RelayCommand)?.RaiseCanExecuteChanged();
+		(ExportProfileCommand as RelayCommand)?.RaiseCanExecuteChanged();
+	}
+	
+	private async Task ImportProfileAsync()
+	{
+		var dialog = new Microsoft.Win32.OpenFileDialog
+		{
+			Title = "Import SimNite Profile",
+			Filter = "JSON Profiles (*.json)|*.json|All files (*.*)|*.*",
+			CheckFileExists = true
+		};
+
+		if (dialog.ShowDialog() == true)
+		{
+			try
+			{
+				IsLoading = true;
+				var profile = await _profileService.LoadProfileAsync(dialog.FileName, CancellationToken.None);
+				
+				if (profile.Mods != null)
+				{
+					ApplySelectedModIds(profile.Mods.Select(m => m.Id));
+				}
+				ErrorMessage = null;
+			}
+			catch (Exception ex)
+			{
+				ErrorMessage = $"Failed to import profile: {ex.Message}";
+			}
+			finally
+			{
+				IsLoading = false;
+			}
+		}
+	}
+
+	private async Task ExportProfileAsync()
+	{
+		var dialog = new Microsoft.Win32.SaveFileDialog
+		{
+			Title = "Export SimNite Profile",
+			Filter = "JSON Profiles (*.json)|*.json",
+			FileName = "MyProfile.json",
+			DefaultExt = ".json"
+		};
+
+		if (dialog.ShowDialog() == true)
+		{
+			try
+			{
+				IsLoading = true;
+				var profile = new ModProfile
+				{
+					Id = Guid.NewGuid().ToString(),
+					Name = Path.GetFileNameWithoutExtension(dialog.FileName),
+					CreatedAt = DateTime.Now,
+					Mods = SelectedMods.ToList()
+				};
+				
+				await _profileService.SaveProfileAsync(dialog.FileName, profile, CancellationToken.None);
+				ErrorMessage = null;
+			}
+			catch (Exception ex)
+			{
+				ErrorMessage = $"Failed to export profile: {ex.Message}";
+			}
+			finally
+			{
+				IsLoading = false;
+			}
+		}
 	}
 }

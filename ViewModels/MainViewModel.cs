@@ -18,9 +18,8 @@ public class MainViewModel : BaseViewModel
 		IInstallService installService)
 	{
 		WelcomeViewModel = new WelcomeViewModel(this);
-		ModListViewModel = new ModListViewModel(databaseService);
+		ModListViewModel = new ModListViewModel(databaseService, profileService);
 		InstallViewModel = new InstallViewModel(downloadService, installService);
-		ProfileViewModel = new ProfileViewModel(profileService, ModListViewModel);
 		SettingsViewModel = new SettingsViewModel(profileService);
 
 		// Initialiser les étapes de navigation
@@ -28,8 +27,7 @@ public class MainViewModel : BaseViewModel
 		{
 			new NavigationStep(1, "Bienvenue", "Découvrez SimNite", ShowWelcomeCommand),
 			new NavigationStep(2, "Catalogue", "Explorez les mods disponibles", ShowModListCommand),
-			new NavigationStep(3, "Installation", "Installez vos mods", ShowInstallCommand),
-			new NavigationStep(4, "Profils", "Gérez vos configurations", ShowProfileCommand)
+			new NavigationStep(3, "Installation", "Installez vos mods", ShowInstallCommand)
 		};
 
 		// Commencer par la page d'accueil
@@ -39,7 +37,6 @@ public class MainViewModel : BaseViewModel
 		ShowWelcomeCommand = new RelayCommand(_ => NavigateToWelcome());
 		ShowModListCommand = new RelayCommand(_ => NavigateToModList());
 		ShowInstallCommand = new RelayCommand(_ => NavigateToInstall());
-		ShowProfileCommand = new RelayCommand(_ => NavigateToProfile());
 		ShowSettingsCommand = new RelayCommand(_ => NavigateToSettings());
 
 		ModListViewModel.InstallRequested += OnInstallRequested;
@@ -66,7 +63,6 @@ public class MainViewModel : BaseViewModel
 				UpdateStepStatus();
 				OnPropertyChanged(nameof(IsModListActive));
 				OnPropertyChanged(nameof(IsInstallActive));
-				OnPropertyChanged(nameof(IsProfileActive));
 				OnPropertyChanged(nameof(IsSettingsActive));
 			}
 		}
@@ -86,8 +82,6 @@ public class MainViewModel : BaseViewModel
 
 	public InstallViewModel InstallViewModel { get; }
 
-	public ProfileViewModel ProfileViewModel { get; }
-
 	public SettingsViewModel SettingsViewModel { get; }
 
 	public ICommand ShowWelcomeCommand { get; }
@@ -96,13 +90,10 @@ public class MainViewModel : BaseViewModel
 
 	public ICommand ShowInstallCommand { get; }
 
-	public ICommand ShowProfileCommand { get; }
-
 	public ICommand ShowSettingsCommand { get; }
 
 	public bool IsModListActive => CurrentViewModel == ModListViewModel;
 	public bool IsInstallActive => CurrentViewModel == InstallViewModel;
-	public bool IsProfileActive => CurrentViewModel == ProfileViewModel;
 	public bool IsSettingsActive => CurrentViewModel == SettingsViewModel;
 
 	private void UpdateStepStatus()
@@ -118,8 +109,6 @@ public class MainViewModel : BaseViewModel
 			else if (_currentViewModel == ModListViewModel && i == 1)
 				step.IsCurrent = true;
 			else if (_currentViewModel == InstallViewModel && i == 2)
-				step.IsCurrent = true;
-			else if (_currentViewModel == ProfileViewModel && i == 3)
 				step.IsCurrent = true;
 
 			// Marquer les étapes précédentes comme complétées
@@ -137,6 +126,5 @@ public class MainViewModel : BaseViewModel
 	private void NavigateToWelcome() => CurrentViewModel = WelcomeViewModel;
 	private void NavigateToModList() => CurrentViewModel = ModListViewModel;
 	private void NavigateToInstall() => CurrentViewModel = InstallViewModel;
-	private void NavigateToProfile() => CurrentViewModel = ProfileViewModel;
 	private void NavigateToSettings() => CurrentViewModel = SettingsViewModel;
 }
