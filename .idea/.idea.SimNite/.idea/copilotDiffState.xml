@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CopilotDiffPersistence">
+    <option name="pendingDiffs">
+      <map>
+        <entry key="/Mod (snapshot).cs">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="/Mod (snapshot).cs" />
+              <option name="originalContent" value="namespace SimNite.Models;&#10;&#10;public class Mod&#10;{&#10;    public string Id { get; set; } = string.Empty;&#10;    public string Name { get; set; } = string.Empty;&#10;    public string Version { get; set; } = string.Empty;&#10;    public string DownloadUrl { get; set; } = string.Empty;&#10;    public ModCategory Category { get; set; }&#10;    public ModType Type { get; set; }&#10;    public InstallMode InstallMode { get; set; }&#10;    public long SizeBytes { get; set; }&#10;    public bool IsChecked { get; set; }&#10;    public List&lt;string&gt; Tags { get; set; } = new();&#10;}&#10;" />
+              <option name="updatedContent" value="namespace SimNite.Models;&#13;&#10;&#13;&#10;public class Mod&#13;&#10;{&#13;&#10;    public string Id { get; set; } = string.Empty;&#13;&#10;    public string Name { get; set; } = string.Empty;&#13;&#10;    public string Description { get; set; } = string.Empty;&#13;&#10;    public string Author { get; set; } = string.Empty;&#13;&#10;    public string Version { get; set; } = string.Empty;&#13;&#10;    public string DownloadUrl { get; set; } = string.Empty;&#13;&#10;    public ModCategory Category { get; set; }&#13;&#10;    public ModType Type { get; set; }&#13;&#10;    public InstallMode InstallMode { get; set; }&#13;&#10;    public long SizeBytes { get; set; }&#13;&#10;    public bool IsChecked { get; set; }&#13;&#10;    public List&lt;string&gt; Tags { get; set; } = new();&#13;&#10;}" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="/mods (snapshot).json">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="/mods (snapshot).json" />
+              <option name="originalContent" value="{&#10;  &quot;mods&quot;: [&#10;    {&#10;      &quot;id&quot;: &quot;fbw&quot;,&#10;      &quot;name&quot;: &quot;FlyByWire Installer&quot;,&#10;      &quot;version&quot;: &quot;stable&quot;,&#10;      &quot;downloadUrl&quot;: &quot;https://flybywirecdn.com/installer/release/FlyByWire_Installer_Setup.exe&quot;,&#10;      &quot;category&quot;: &quot;Aircraft&quot;,&#10;      &quot;type&quot;: &quot;CommunityZip&quot;,&#10;      &quot;installMode&quot;: &quot;Auto&quot;,&#10;      &quot;sizeBytes&quot;: 987654321,&#10;      &quot;isChecked&quot;: false,&#10;      &quot;tags&quot;: [&quot;airliner&quot;, &quot;a320&quot;, &quot;freeware&quot;]&#10;    }&#10;  ]&#10;}&#10;&#10;" />
+              <option name="updatedContent" value="{&#10;  &quot;mods&quot;: [&#10;    {&#10;      &quot;id&quot;: &quot;fbw&quot;,&#10;      &quot;name&quot;: &quot;FlyByWire A32NX&quot;,&#10;      &quot;description&quot;: &quot;Modification gratuite de l'A320 par défaut avec systèmes réalistes.&quot;,&#10;      &quot;author&quot;: &quot;FlyByWire Simulations&quot;,&#10;      &quot;version&quot;: &quot;v0.12.3&quot;,&#10;      &quot;downloadUrl&quot;: &quot;https://flybywirecdn.com/installer/release/FlyByWire_Installer_Setup.exe&quot;,&#10;      &quot;category&quot;: &quot;Aircraft&quot;,&#10;      &quot;type&quot;: &quot;ExternalInstaller&quot;,&#10;      &quot;installMode&quot;: &quot;Assisted&quot;,&#10;      &quot;sizeBytes&quot;: 780000000,&#10;      &quot;isChecked&quot;: false,&#10;      &quot;tags&quot;: [&quot;airliner&quot;, &quot;a320&quot;, &quot;freeware&quot;]&#10;    }&#10;  ]&#10;}&#10;&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

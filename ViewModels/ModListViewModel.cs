@@ -27,23 +27,41 @@ public class ModListViewModel : BaseViewModel
 		FilteredMods = new ObservableCollection<Mod>();
 		Categories = Enum.GetValues<ModCategory>();
 
-		LoadModsCommand = new RelayCommand(_ => LoadModsAsync(), _ => !IsLoading);
-		RefreshModsCommand = new RelayCommand(_ => LoadModsAsync(forceRefresh: true), _ => !IsLoading);
-		ClearFiltersCommand = new RelayCommand(_ => ClearFilters(), _ => !IsLoading);
-		CancelLoadCommand = new RelayCommand(_ => CancelLoading(), _ => IsLoading);
-	}
+                // Mock Mod for FBW Installer testing
+                var fbwMod = new Mod
+                {
+                        Id = "fbw-installer",
+                        Name = "FlyByWire Installer",
+                        Description = "Installeur officiel pour les avions FlyByWire Simulations (A32NX, A380X).",
+                        Author = "FlyByWire Simulations",
+                        Version = "v1.0",
+                        DownloadUrl = "https://flybywirecdn.com/installer/release/FlyByWire_Installer_Setup.exe",
+                        Category = ModCategory.Aircraft,
+                        Type = ModType.ExternalInstaller,
+                        InstallMode = InstallMode.Auto,
+                        SizeBytes = 780000,
+                        IsChecked = false
+                };
+                _allMods.Add(fbwMod);
+                FilteredMods.Add(fbwMod);
 
-	public ObservableCollection<Mod> FilteredMods { get; }
+                LoadModsCommand = new RelayCommand(_ => LoadModsAsync(), _ => !IsLoading);
+                RefreshModsCommand = new RelayCommand(_ => LoadModsAsync(forceRefresh: true), _ => !IsLoading);
+                ClearFiltersCommand = new RelayCommand(_ => ClearFilters(), _ => !IsLoading);
+                CancelLoadCommand = new RelayCommand(_ => CancelLoading(), _ => IsLoading);
+        }
 
-	public IReadOnlyList<ModCategory> Categories { get; }
+        public ObservableCollection<Mod> FilteredMods { get; }
 
-	public ICommand LoadModsCommand { get; }
+        public IReadOnlyList<ModCategory> Categories { get; }
 
-	public ICommand RefreshModsCommand { get; }
+        public ICommand LoadModsCommand { get; }
 
-	public ICommand ClearFiltersCommand { get; }
+        public ICommand RefreshModsCommand { get; }
 
-	public ICommand CancelLoadCommand { get; }
+        public ICommand ClearFiltersCommand { get; }
+
+        public ICommand CancelLoadCommand { get; }
 
 	public string SearchText
 	{
