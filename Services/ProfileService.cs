@@ -155,14 +155,53 @@ public class ProfileService : IProfileService
 		var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 		var roamingAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
-		var candidates = new[]
+		// First, try reading UserCfg.opt to find custom installation paths (e.g D:\MSFS)
+		var userCfgCandidates = new[]
+		{
+			Path.Combine(localAppData, "Packages", "Microsoft.FlightSimulator_8wekyb3d8bbwe", "LocalCache", "UserCfg.opt"),
+			Path.Combine(roamingAppData, "Microsoft Flight Simulator", "UserCfg.opt"),
+			Path.Combine(localAppData, "Packages", "Microsoft.Limitless_8wekyb3d8bbwe", "LocalCache", "UserCfg.opt")
+		};
+
+		foreach (var cfgPath in userCfgCandidates)
+		{
+			if (File.Exists(cfgPath))
+			{
+				try 
+				{
+					var lines = File.ReadAllLines(cfgPath);
+					var installLine = lines.LastOrDefault(l => l.StartsWith("InstalledPackagesPath"));
+					if (!string.IsNullOrWhiteSpace(installLine))
+					{
+						// Extract path from quotes: InstalledPackagesPath "D:\MSFS"
+						var parts = installLine.Split('"', StringSplitOptions.RemoveEmptyEntries);
+						if (parts.Length >= 2)
+						{
+							var customPath = parts[1];
+							var customCommunity = Path.Combine(customPath, "Community");
+							if (Directory.Exists(customCommunity))
+							{
+								return customCommunity;
+							}
+						}
+					}
+				}
+				catch 
+				{
+					// Ignore read errors and fallback to defaults
+				}
+			}
+		}
+
+		// Fallback to default locations if UserCfg.opt parsing fails or doesn't have it
+		var defaultCandidates = new[]
 		{
 			Path.Combine(localAppData, "Packages", "Microsoft.FlightSimulator_8wekyb3d8bbwe", "LocalCache", "Packages", "Community"),
 			Path.Combine(roamingAppData, "Microsoft Flight Simulator", "Packages", "Community"),
 			Path.Combine(localAppData, "Packages", "Microsoft.Limitless_8wekyb3d8bbwe", "LocalCache", "Packages", "Community")
 		};
 
-		return candidates.FirstOrDefault(Directory.Exists);
+		return defaultCandidates.FirstOrDefault(Directory.Exists);
 	}
 
 	private static void EnsureParentDirectory(string filePath)

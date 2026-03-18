@@ -16,14 +16,10 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <!-- Header / Logo -->
                 <Button Grid.Row="0" Command="{Binding ShowWelcomeCommand}" Background="Transparent" BorderThickness="0" Margin="0,32,0,32" Cursor="Hand">
-                    <StackPanel HorizontalAlignment="Center">
-                        <Border Background="White" Width="64" Height="64" Margin="0,0,0,16">
-                            <Image Source="/Logo/SimNite_icon.png" Width="48" Height="48"/>
-                        </Border>
-                        <TextBlock Text="SIMNITE MANAGER" Foreground="{StaticResource SimNiteMutedBrush}" FontSize="14" FontWeight="SemiBold" HorizontalAlignment="Center"/>
-                    </StackPanel>
+                    <Border Background="White" CornerRadius="12" Padding="24,16" Margin="24,0,24,0" HorizontalAlignment="Stretch">
+                        <Image Source="/Logo/LogoFull.png" Stretch="Uniform" Height="50"/>
+                    </Border>
                 </Button>
 
                 <!-- Navigation -->
@@ -143,7 +139,7 @@
                         <TextBlock Text="📁" Margin="0,0,16,0" VerticalAlignment="Center" FontSize="20"/>
                         <StackPanel>
                             <TextBlock Text="Community Folder" Foreground="{StaticResource SimNiteMutedBrush}" FontSize="14"/>
-                            <TextBlock Text="D:\MSFS\Community" Foreground="{StaticResource SimNiteTextBrush}" FontSize="12" TextTrimming="CharacterEllipsis" MaxWidth="180"/>
+                            <TextBlock Text="{Binding SettingsViewModel.CommunityFolderPath}" Foreground="{StaticResource SimNiteTextBrush}" FontSize="12" TextTrimming="CharacterEllipsis" MaxWidth="180"/>
                         </StackPanel>
                     </StackPanel>
                 </Border>
