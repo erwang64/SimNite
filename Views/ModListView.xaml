@@ -23,7 +23,6 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     
                     <TextBlock Grid.Column="0" Text="Bibliothèque de mods" FontSize="24" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" />
@@ -32,18 +31,10 @@
                     </Border>
                     
                     <!-- Search -->
-                    <Border Grid.Column="3" Background="#151515" BorderBrush="#222222" BorderThickness="1" Margin="0,0,12,0" Padding="8,6">
+                    <Border Grid.Column="3" Background="#1C1C1C" CornerRadius="8" BorderBrush="#333333" BorderThickness="1" Margin="0,0,12,0" Padding="12,8">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="🔍" Foreground="#666666" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                            <TextBox Width="180" Background="Transparent" BorderThickness="0" Foreground="White" Text="Rechercher un mod..." VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </Border>
-
-                    <!-- Filter Button -->
-                    <Border Grid.Column="4" Background="#151515" BorderBrush="#222222" BorderThickness="1" Padding="12,6">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="🏷️" Foreground="#666666" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="Gratuit seulement" Foreground="#AAAAAA" VerticalAlignment="Center"/>
+                            <TextBlock Text="🔍" Foreground="#AAAAAA" Margin="0,0,8,0" FontSize="14" VerticalAlignment="Center"/>
+                            <TextBox Width="220" Background="Transparent" BorderThickness="0" Foreground="White" FontSize="14" Text="Rechercher un mod..." VerticalAlignment="Center"/>
                         </StackPanel>
                     </Border>
                 </Grid>
