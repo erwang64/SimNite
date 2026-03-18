@@ -5,15 +5,18 @@
              xmlns:views="clr-namespace:SimNite.Views"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <SolidColorBrush x:Key="SimNiteBackgroundBrush" Color="#ECEAE4" />
-        <SolidColorBrush x:Key="SimNiteSurfaceBrush" Color="#F8F7F2" />
-        <SolidColorBrush x:Key="SimNitePanelBrush" Color="#FFFCF5" />
-        <SolidColorBrush x:Key="SimNiteBorderBrush" Color="#D8D4C8" />
+        <!-- Dark Theme Colors -->
+        <SolidColorBrush x:Key="SimNiteBackgroundBrush" Color="#0F0F0F" />
+        <SolidColorBrush x:Key="SimNiteSurfaceBrush" Color="#1A1A1A" />
+        <SolidColorBrush x:Key="SimNitePanelBrush" Color="#242424" />
+        <SolidColorBrush x:Key="SimNiteBorderBrush" Color="#333333" />
         <SolidColorBrush x:Key="SimNitePrimaryBrush" Color="#F7C614" />
-        <SolidColorBrush x:Key="SimNiteTextBrush" Color="#101010" />
-        <SolidColorBrush x:Key="SimNiteMutedBrush" Color="#625E54" />
-        <SolidColorBrush x:Key="SimNiteErrorBrush" Color="#B42318" />
-        <SolidColorBrush x:Key="SimNiteSuccessBrush" Color="#166534" />
+        <SolidColorBrush x:Key="SimNiteTextBrush" Color="#E8E8E8" />
+        <SolidColorBrush x:Key="SimNiteMutedBrush" Color="#999999" />
+        <SolidColorBrush x:Key="SimNiteErrorBrush" Color="#EF4444" />
+        <SolidColorBrush x:Key="SimNiteSuccessBrush" Color="#10B981" />
+        <SolidColorBrush x:Key="SimNiteHoverBrush" Color="#2A2A2A" />
+        <SolidColorBrush x:Key="SimNiteInputBrush" Color="#1E1E1E" />
 
         <Style TargetType="Window">
             <Setter Property="Background" Value="{StaticResource SimNiteBackgroundBrush}" />
@@ -45,7 +48,7 @@
 
         <Style TargetType="Button">
             <Setter Property="Foreground" Value="{StaticResource SimNiteTextBrush}" />
-            <Setter Property="Background" Value="White" />
+            <Setter Property="Background" Value="#2A2A2A" />
             <Setter Property="BorderBrush" Value="{StaticResource SimNiteBorderBrush}" />
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="Padding" Value="14,8" />
@@ -57,7 +60,7 @@
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="10"
+                                CornerRadius="8"
                                 SnapsToDevicePixels="True">
                             <ContentPresenter Margin="{TemplateBinding Padding}"
                                               HorizontalAlignment="Center"
@@ -65,14 +68,14 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="buttonBorder" Property="Background" Value="#FFF2C857" />
+                                <Setter TargetName="buttonBorder" Property="Background" Value="#383838" />
                                 <Setter TargetName="buttonBorder" Property="BorderBrush" Value="{StaticResource SimNitePrimaryBrush}" />
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="buttonBorder" Property="Background" Value="#FFE7B500" />
+                                <Setter TargetName="buttonBorder" Property="Background" Value="#424242" />
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
-                                <Setter TargetName="buttonBorder" Property="Opacity" Value="0.55" />
+                                <Setter TargetName="buttonBorder" Property="Opacity" Value="0.45" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -82,6 +85,7 @@
 
         <Style x:Key="PrimaryButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
             <Setter Property="Background" Value="{StaticResource SimNitePrimaryBrush}" />
+            <Setter Property="Foreground" Value="#000000" />
             <Setter Property="BorderBrush" Value="#D6AA10" />
             <Setter Property="FontWeight" Value="SemiBold" />
         </Style>
@@ -89,20 +93,22 @@
         <Style x:Key="NavButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
             <Setter Property="Padding" Value="16,8" />
             <Setter Property="FontWeight" Value="SemiBold" />
-            <Setter Property="Background" Value="#FFFDF9E8" />
+            <Setter Property="Background" Value="#2F2F2F" />
+            <Setter Property="BorderBrush" Value="#444444" />
         </Style>
 
         <Style TargetType="TextBox">
-            <Setter Property="Background" Value="White" />
+            <Setter Property="Background" Value="{StaticResource SimNiteInputBrush}" />
             <Setter Property="BorderBrush" Value="{StaticResource SimNiteBorderBrush}" />
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="Padding" Value="10,6" />
             <Setter Property="Foreground" Value="{StaticResource SimNiteTextBrush}" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="CaretBrush" Value="{StaticResource SimNitePrimaryBrush}" />
         </Style>
 
         <Style TargetType="ComboBox">
-            <Setter Property="Background" Value="White" />
+            <Setter Property="Background" Value="{StaticResource SimNiteInputBrush}" />
             <Setter Property="BorderBrush" Value="{StaticResource SimNiteBorderBrush}" />
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="Padding" Value="6,4" />
@@ -111,26 +117,29 @@
 
         <Style TargetType="ProgressBar">
             <Setter Property="Foreground" Value="{StaticResource SimNitePrimaryBrush}" />
-            <Setter Property="Background" Value="#FFF3EFD8" />
+            <Setter Property="Background" Value="#2A2A2A" />
             <Setter Property="Height" Value="20" />
+            <Setter Property="BorderBrush" Value="{StaticResource SimNiteBorderBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
         </Style>
 
         <Style TargetType="DataGrid">
-            <Setter Property="Background" Value="White" />
+            <Setter Property="Background" Value="{StaticResource SimNiteInputBrush}" />
             <Setter Property="BorderBrush" Value="{StaticResource SimNiteBorderBrush}" />
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="GridLinesVisibility" Value="Horizontal" />
-            <Setter Property="HorizontalGridLinesBrush" Value="#EEE9DB" />
-            <Setter Property="VerticalGridLinesBrush" Value="#EEE9DB" />
-            <Setter Property="RowBackground" Value="White" />
-            <Setter Property="AlternatingRowBackground" Value="#FFFCF7EA" />
+            <Setter Property="HorizontalGridLinesBrush" Value="#2A2A2A" />
+            <Setter Property="VerticalGridLinesBrush" Value="#2A2A2A" />
+            <Setter Property="RowBackground" Value="{StaticResource SimNiteInputBrush}" />
+            <Setter Property="AlternatingRowBackground" Value="#242424" />
             <Setter Property="HeadersVisibility" Value="Column" />
+            <Setter Property="Foreground" Value="{StaticResource SimNiteTextBrush}" />
         </Style>
 
         <Style TargetType="DataGridColumnHeader">
-            <Setter Property="Background" Value="#FFF5F2E7" />
+            <Setter Property="Background" Value="#2F2F2F" />
             <Setter Property="Foreground" Value="{StaticResource SimNiteTextBrush}" />
-            <Setter Property="BorderBrush" Value="#E5DFC9" />
+            <Setter Property="BorderBrush" Value="#3A3A3A" />
             <Setter Property="BorderThickness" Value="0,0,0,1" />
             <Setter Property="Padding" Value="10,8" />
             <Setter Property="FontWeight" Value="SemiBold" />
