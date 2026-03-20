@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using SimNite.Models;
+using SimNite.Services;
 using SimNite.Services.Interfaces;
 
 namespace SimNite.ViewModels;
@@ -20,6 +21,7 @@ public class MainViewModel : BaseViewModel
 		WelcomeViewModel = new WelcomeViewModel(this);
 		ModListViewModel = new ModListViewModel(databaseService, profileService);
 		InstallViewModel = new InstallViewModel(downloadService, installService);
+		CameraViewModel = new CameraViewModel(new CameraService());
 		SettingsViewModel = new SettingsViewModel(profileService);
 		SupportViewModel = new SupportViewModel();
 
@@ -38,6 +40,7 @@ public class MainViewModel : BaseViewModel
 		ShowWelcomeCommand = new RelayCommand(_ => NavigateToWelcome());
 		ShowModListCommand = new RelayCommand(_ => NavigateToModList());
 		ShowInstallCommand = new RelayCommand(_ => NavigateToInstall());
+		ShowCameraCommand = new RelayCommand(_ => NavigateToCamera());
 		ShowSettingsCommand = new RelayCommand(_ => NavigateToSettings());
 		ShowSupportCommand = new RelayCommand(_ => NavigateToSupport());
 
@@ -65,6 +68,7 @@ public class MainViewModel : BaseViewModel
 				UpdateStepStatus();
 				OnPropertyChanged(nameof(IsModListActive));
 				OnPropertyChanged(nameof(IsInstallActive));
+				OnPropertyChanged(nameof(IsCameraActive));
 				OnPropertyChanged(nameof(IsSettingsActive));
 				OnPropertyChanged(nameof(IsSupportActive));
 			}
@@ -85,6 +89,8 @@ public class MainViewModel : BaseViewModel
 
 	public InstallViewModel InstallViewModel { get; }
 
+	public CameraViewModel CameraViewModel { get; }
+
 	public SettingsViewModel SettingsViewModel { get; }
 
 	public SupportViewModel SupportViewModel { get; }
@@ -95,12 +101,15 @@ public class MainViewModel : BaseViewModel
 
 	public ICommand ShowInstallCommand { get; }
 
+	public ICommand ShowCameraCommand { get; }
+
 	public ICommand ShowSettingsCommand { get; }
 
 	public ICommand ShowSupportCommand { get; }
 
 	public bool IsModListActive => CurrentViewModel == ModListViewModel;
 	public bool IsInstallActive => CurrentViewModel == InstallViewModel;
+	public bool IsCameraActive => CurrentViewModel == CameraViewModel;
 	public bool IsSettingsActive => CurrentViewModel == SettingsViewModel;
 	public bool IsSupportActive => CurrentViewModel == SupportViewModel;
 
@@ -134,6 +143,7 @@ public class MainViewModel : BaseViewModel
 	private void NavigateToWelcome() => CurrentViewModel = WelcomeViewModel;
 	private void NavigateToModList() => CurrentViewModel = ModListViewModel;
 	private void NavigateToInstall() => CurrentViewModel = InstallViewModel;
+	private void NavigateToCamera() => CurrentViewModel = CameraViewModel;
 	private void NavigateToSettings() => CurrentViewModel = SettingsViewModel;
 	private void NavigateToSupport() => CurrentViewModel = SupportViewModel;
 }

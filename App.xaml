@@ -251,6 +251,10 @@
             <views:InstallView />
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type viewModels:CameraViewModel}">
+            <views:CameraView />
+        </DataTemplate>
+
         <DataTemplate DataType="{x:Type viewModels:SettingsViewModel}">
             <views:SettingsView />
         </DataTemplate>

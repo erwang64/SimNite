@@ -95,6 +95,27 @@
                         </StackPanel>
                     </Button>
 
+                    <!-- Caméras -->
+                    <Button Command="{Binding ShowCameraCommand}" Padding="0">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource NavButtonStyle}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsCameraActive}" Value="True">
+                                        <Setter Property="Background" Value="#1FF7C614" />
+                                        <Setter Property="BorderBrush" Value="{StaticResource SimNitePrimaryBrush}" />
+                                        <Setter Property="BorderThickness" Value="1" />
+                                        <Setter Property="Foreground" Value="{StaticResource SimNitePrimaryBrush}" />
+                                        <Setter Property="FontWeight" Value="SemiBold" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <StackPanel Orientation="Horizontal" Width="220">
+                            <TextBlock Text="📷" Margin="0,0,16,0" FontSize="22"/>
+                            <TextBlock Text="Cameras" FontSize="18" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
                     <!-- Paramètres -->
                     <Button Command="{Binding ShowSettingsCommand}" Padding="0">
                         <Button.Style>
