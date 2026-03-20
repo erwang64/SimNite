@@ -218,10 +218,21 @@ public class CameraViewModel : BaseViewModel
 			await _cameraService.RestoreCamerasAsync(RestoreZipPath, SimObjectsPath);
 			StatusMessage = "Cameras restored successfully!";
 			RefreshCount();
+
+			System.Windows.MessageBox.Show(
+				"Custom cameras and panel states have been successfully restored to Microsoft Flight Simulator!", 
+				"Restore Complete", 
+				System.Windows.MessageBoxButton.OK, 
+				System.Windows.MessageBoxImage.Information);
 		}
 		catch (Exception ex)
 		{
 			StatusMessage = $"Error: {ex.Message}";
+			System.Windows.MessageBox.Show(
+				$"An error occurred during restoration:\n{ex.Message}", 
+				"Restore Error", 
+				System.Windows.MessageBoxButton.OK, 
+				System.Windows.MessageBoxImage.Error);
 		}
 		finally
 		{
