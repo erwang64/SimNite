@@ -15,6 +15,10 @@ namespace SimNite
         {
             base.OnStartup(e);
 
+            // Forcer la langue en Anglais pour la fenêtre de mise à jour
+            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+
             // INITIALISER L'AUTO-UPDATER GITHUB
             // /!\ Attention : Remplacez 'VOTRE_NOM_GITHUB' par votre vrai pseudo GitHub /!\
             AutoUpdater.HttpUserAgent = "SimNite-Updater";

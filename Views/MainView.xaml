@@ -193,7 +193,7 @@
                         </StackPanel>
                     </Border>
                     
-                    <TextBlock Text="SimNite v0.1.1" Foreground="{StaticResource SimNiteMutedBrush}" FontSize="12" HorizontalAlignment="Center" Opacity="0.5"/>
+                    <TextBlock Text="SimNite v0.2.0" Foreground="{StaticResource SimNiteMutedBrush}" FontSize="12" HorizontalAlignment="Center" Opacity="0.5"/>
                 </StackPanel>
             </Grid>
         </Border>

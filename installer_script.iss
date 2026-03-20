@@ -1,6 +1,6 @@
 [Setup]
 AppName=SimNite
-AppVersion=0.1.1
+AppVersion=0.2.0
 AppPublisher=SimNite
 AppPublisherURL=https://github.com/erwang64/SimNite
 DefaultDirName={autopf}\SimNite
@@ -8,7 +8,7 @@ DisableProgramGroupPage=yes
 ; Standalone means everything is in the EXE, no extra runtime downloaded setup needed
 PrivilegesRequired=lowest
 OutputDir=Installer
-OutputBaseFilename=SimNite_Setup_v0.1.1
+OutputBaseFilename=SimNite_Setup_v0.2.0
 SetupIconFile=Logo\SimNite_icon.ico
 Compression=lzma
 SolidCompression=yes

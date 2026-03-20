@@ -3,16 +3,60 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Grid Background="{StaticResource SimNiteBackgroundBrush}">
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40" MaxWidth="800">
                 
-                <TextBlock Text="Welcome to SimNite" FontSize="42" FontWeight="Bold" Foreground="{StaticResource SimNiteTextBrush}" HorizontalAlignment="Center" Margin="0,0,0,16"/>
+                <TextBlock Text="Hello and welcome to SimNite!" FontSize="42" FontWeight="Bold" Foreground="{StaticResource SimNiteTextBrush}" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                <TextBlock Text="Thank you for installing the application." FontSize="20" Foreground="{StaticResource SimNitePrimaryBrush}" HorizontalAlignment="Center" Margin="0,0,0,32"/>
 
-                <Border MaxWidth="900" Margin="0,0,0,48" Padding="28" Background="{StaticResource SimNiteSurfaceBrush}" BorderBrush="{StaticResource SimNiteBorderBrush}" BorderThickness="1" CornerRadius="12">
-                    <TextBlock TextWrapping="Wrap" TextAlignment="Center" Foreground="{StaticResource SimNiteMutedBrush}" FontSize="16" LineHeight="28"
-                               Text="SimNite helps you restore your setup fast: choose your mods in the library, save your selection as a profile, and load it anytime later. The app will then download and install everything automatically for you."/>
+                <!-- Description de l'app -->
+                <Border Padding="32" Background="{StaticResource SimNiteSurfaceBrush}" BorderBrush="{StaticResource SimNiteBorderBrush}" BorderThickness="1" CornerRadius="12" Margin="0,0,0,32">
+                    <StackPanel>
+                        <TextBlock Text="What is SimNite?" FontSize="24" FontWeight="SemiBold" Foreground="{StaticResource SimNiteTextBrush}" Margin="0,0,0,12"/>
+                        <TextBlock TextWrapping="Wrap" Foreground="{StaticResource SimNiteMutedBrush}" FontSize="16" LineHeight="26"
+                                   Text="SimNite is a dedicated tool designed to help you quickly restore and manage your simulator setup. It simplifies configuring your game by allowing you to easily browse, manage, and install your mods automatically without having to deal with complex folders manually."/>
+                    </StackPanel>
                 </Border>
 
-                <Button Style="{StaticResource PrimaryButtonStyle}" Command="{Binding StartJourneyCommand}" Content="Get Started" FontSize="18" Padding="32,16" HorizontalAlignment="Center"/>
+                <!-- Présentation des pages (texte simple) -->
+                <Border Padding="32" Background="{StaticResource SimNiteSurfaceBrush}" BorderBrush="{StaticResource SimNiteBorderBrush}" BorderThickness="1" CornerRadius="12" Margin="0,0,0,48">
+                    <StackPanel>
+                        <TextBlock Text="Explore the Application" FontSize="24" FontWeight="SemiBold" Foreground="{StaticResource SimNiteTextBrush}" Margin="0,0,0,20"/>
+                        
+                        <Grid Margin="0,0,0,16">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="🧩 Mods" FontWeight="SemiBold" FontSize="16" Foreground="{StaticResource SimNiteTextBrush}"/>
+                            <TextBlock Grid.Column="1" Text="Discover, manage, and install your favorite mods automatically to customize your simulator experience." FontSize="16" Foreground="{StaticResource SimNiteMutedBrush}" TextWrapping="Wrap"/>
+                        </Grid>
+                        
+                        <Grid Margin="0,0,0,16">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="🎥 Camera" FontWeight="SemiBold" FontSize="16" Foreground="{StaticResource SimNiteTextBrush}"/>
+                            <TextBlock Grid.Column="1" Text="Easily backup and restore your custom camera configurations to keep them safe." FontSize="16" Foreground="{StaticResource SimNiteMutedBrush}" TextWrapping="Wrap"/>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="⚙️ Sim Settings" FontWeight="SemiBold" FontSize="16" Foreground="{StaticResource SimNiteTextBrush}"/>
+                            <TextBlock Grid.Column="1" Text="Create and restore backups of your simulator's core settings files." FontSize="16" Foreground="{StaticResource SimNiteMutedBrush}" TextWrapping="Wrap"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <StackPanel HorizontalAlignment="Center">
+                    <Button Style="{StaticResource PrimaryButtonStyle}" Command="{Binding StartJourneyCommand}" Content="Get Started" FontSize="18" Padding="32,16" Margin="0,0,0,16"/>
+                    <Button Foreground="{StaticResource SimNitePrimaryBrush}" Background="Transparent" BorderThickness="0" FontSize="14" Cursor="Hand" Click="ViewChangelogs_Click" HorizontalAlignment="Center">
+                        <TextBlock Text="View last changelogs" TextDecorations="Underline" />
+                    </Button>
+                </StackPanel>
             </StackPanel>
         </ScrollViewer>
     </Grid>
