@@ -255,6 +255,10 @@
             <views:CameraView />
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type viewModels:SimulatorSettingsViewModel}">
+            <views:SimulatorSettingsView />
+        </DataTemplate>
+
         <DataTemplate DataType="{x:Type viewModels:SettingsViewModel}">
             <views:SettingsView />
         </DataTemplate>

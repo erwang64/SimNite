@@ -23,6 +23,7 @@ public class MainViewModel : BaseViewModel
 		InstallViewModel = new InstallViewModel(downloadService, installService);
 		CameraViewModel = new CameraViewModel(new CameraService());
 		SettingsViewModel = new SettingsViewModel(profileService);
+		SimulatorSettingsViewModel = new SimulatorSettingsViewModel(new SimulatorSettingsService());
 		SupportViewModel = new SupportViewModel();
 
 		// Initialiser les étapes de navigation
@@ -42,6 +43,7 @@ public class MainViewModel : BaseViewModel
 		ShowInstallCommand = new RelayCommand(_ => NavigateToInstall());
 		ShowCameraCommand = new RelayCommand(_ => NavigateToCamera());
 		ShowSettingsCommand = new RelayCommand(_ => NavigateToSettings());
+		ShowSimulatorSettingsCommand = new RelayCommand(_ => NavigateToSimulatorSettings());
 		ShowSupportCommand = new RelayCommand(_ => NavigateToSupport());
 
 		ModListViewModel.InstallRequested += OnInstallRequested;
@@ -70,6 +72,7 @@ public class MainViewModel : BaseViewModel
 				OnPropertyChanged(nameof(IsInstallActive));
 				OnPropertyChanged(nameof(IsCameraActive));
 				OnPropertyChanged(nameof(IsSettingsActive));
+				OnPropertyChanged(nameof(IsSimulatorSettingsActive));
 				OnPropertyChanged(nameof(IsSupportActive));
 			}
 		}
@@ -93,6 +96,8 @@ public class MainViewModel : BaseViewModel
 
 	public SettingsViewModel SettingsViewModel { get; }
 
+	public SimulatorSettingsViewModel SimulatorSettingsViewModel { get; }
+
 	public SupportViewModel SupportViewModel { get; }
 
 	public ICommand ShowWelcomeCommand { get; }
@@ -105,12 +110,15 @@ public class MainViewModel : BaseViewModel
 
 	public ICommand ShowSettingsCommand { get; }
 
+	public ICommand ShowSimulatorSettingsCommand { get; }
+
 	public ICommand ShowSupportCommand { get; }
 
 	public bool IsModListActive => CurrentViewModel == ModListViewModel;
 	public bool IsInstallActive => CurrentViewModel == InstallViewModel;
 	public bool IsCameraActive => CurrentViewModel == CameraViewModel;
 	public bool IsSettingsActive => CurrentViewModel == SettingsViewModel;
+	public bool IsSimulatorSettingsActive => CurrentViewModel == SimulatorSettingsViewModel;
 	public bool IsSupportActive => CurrentViewModel == SupportViewModel;
 
 	private void UpdateStepStatus()
@@ -145,5 +153,6 @@ public class MainViewModel : BaseViewModel
 	private void NavigateToInstall() => CurrentViewModel = InstallViewModel;
 	private void NavigateToCamera() => CurrentViewModel = CameraViewModel;
 	private void NavigateToSettings() => CurrentViewModel = SettingsViewModel;
+	private void NavigateToSimulatorSettings() => CurrentViewModel = SimulatorSettingsViewModel;
 	private void NavigateToSupport() => CurrentViewModel = SupportViewModel;
 }
